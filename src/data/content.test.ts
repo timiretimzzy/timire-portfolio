@@ -2,7 +2,8 @@ import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { articles, parseFrontMatter } from './articles'
-import { mechanisms, profile } from './profile'
+import { places } from './places'
+import { experience, mechanisms, profile } from './profile'
 import { allProjects, projects } from './projects'
 
 const root = resolve(__dirname, '../..')
@@ -53,10 +54,40 @@ describe('project data', () => {
         expect(verified.length, p.slug).toBeGreaterThan(0)
       }
     }
-    for (const slug of ['supporta', 'chaos-verify', 'fiscalstack-retail', 'fiscalstack-restaurant']) {
+    for (const slug of ['chaos-verify', 'fiscalstack-retail', 'fiscalstack-restaurant']) {
       const p = allProjects.find((x) => x.slug === slug)!
       expect(sections.flatMap((k) => p[k].facts ?? []).some((f) => f.evidence === 'verified'), slug).toBe(false)
     }
+  })
+
+  it('catalogues the inspected projects with cautious status and stack details', () => {
+    expect(projects.map((p) => p.slug)).toEqual(
+      expect.arrayContaining([
+        'fiscalstack-web',
+        'fiscalstack-fieldpos',
+        'edustack',
+        'supporta',
+        'the-interrogation',
+        'tee-and-co',
+        'crazy-eights',
+      ]),
+    )
+    expect(projects.find((p) => p.slug === 'supporta')?.status).toBe('prototype')
+    expect(projects.find((p) => p.slug === 'the-interrogation')?.status).toBe('prototype')
+    expect(projects.find((p) => p.slug === 'crazy-eights')?.status).toBe('prototype')
+    expect(projects.find((p) => p.slug === 'edustack')?.stack.map((x) => x.name)).toContain('HTML, CSS, vanilla JavaScript modules')
+    expect(projects.find((p) => p.slug === 'fiscalstack-web')?.stack.map((x) => x.name)).toContain('PostgreSQL, Drizzle ORM')
+  })
+
+  it('uses the supplied product routes for the games and portfolio additions', () => {
+    const projectLinks = projects.flatMap((p) => p.links.map((link) => link.href))
+    expect(projectLinks).toContain(places.stacked)
+    expect(projectLinks).toContain(places.speedRoulette)
+    expect(projectLinks).toContain(places.interrogation)
+    expect(projectLinks).toContain(places.teeCo)
+    expect(projectLinks).toContain(places.crazyEights)
+    expect(places.stacked).toBe('https://timire.co.zw/stacked')
+    expect(places.speedRoulette).toBe('https://timire.co.zw/speed-roulette')
   })
 
   it('external writing points at the real blog', () => {
@@ -67,10 +98,17 @@ describe('project data', () => {
 })
 
 describe('publication', () => {
-  it('holds back sheets marked hidden and never links to them', () => {
+  it('holds back only sheets explicitly marked hidden and never links to them', () => {
     const hidden = allProjects.filter((p) => p.hidden).map((p) => p.slug)
-    expect(hidden).toContain('supporta')
+    expect(hidden).not.toContain('supporta')
     for (const p of projects) expect(hidden.includes(p.slug)).toBe(false)
+  })
+
+  it('keeps excluded organizations out of project copy', () => {
+    const projectText = JSON.stringify(projects).toLowerCase()
+    expect(projectText).not.toContain('revmax')
+    expect(projectText).not.toContain('axis solutions')
+    expect(experience.filter((entry) => entry.org.toLowerCase().includes('axis solutions'))).toHaveLength(1)
   })
 
   it('carries no citation-style source notes in published text', () => {

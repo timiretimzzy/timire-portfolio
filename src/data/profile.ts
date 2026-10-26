@@ -46,7 +46,6 @@ export const profile = {
     'Football',
     'Economics and business',
     'African history',
-    'Philosophy and questions about belief',
     'Creative writing and humour',
   ],
 } as const

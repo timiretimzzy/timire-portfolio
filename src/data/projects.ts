@@ -18,8 +18,7 @@ import { places } from './places'
  *            credentials, device identifiers, customer data or licensing
  *            internals are published, and these sheets must stay that way.
  *
- * Anything still needed goes in `awaiting` (shown in dev builds only; listed
- * in docs/CONTENT_TODO.md).
+ * Incomplete material stays out of published sheets until it can be checked.
  */
 
 const s = (text: string) => ({ text, evidence: 'stated' as const })
@@ -37,10 +36,10 @@ const allProjectRecords: Project[] = [
     mechanisms: ['A', 'B', 'D'],
     status: 'operating',
     statusEvidence: 'stated',
-    summary: 'The subject\u2019s company. Software that makes tills issue valid fiscal receipts, keeps the books honest, and does not fall over when the power does.',
+    summary: 'The subject\u2019s company. Fiscal point-of-sale and business software designed for real tills, unreliable connectivity and the books that have to balance afterwards.',
     accent: 'ink',
     role: {
-      body: 'Founder and Managing Director, and, on the evidence of the source trees, the person writing most of the code. The role as he describes it covers product decisions, architecture, Windows and web development, fiscalisation and API integration, testing, deployment, onboarding customers, and answering the phone when something breaks.',
+      body: 'Founder and Managing Director. The work spans product decisions, architecture, Windows and web development, fiscalisation and API integration, testing, deployment, customer onboarding and support.',
     },
     problem: {
       body: 'Businesses in Zimbabwe must issue tax-compliant fiscal receipts through ZIMRA\u2019s Fiscal Device Management System, keep stock and books straight, and often trade in more than one currency, on power and connectivity that nobody would call guaranteed. Most of them do not want an ERP. They want the till to work, the receipt to be valid, and the month-end numbers to agree.\n\nFiscalStack is his answer: a fiscal engine, point-of-sale systems built on it for shops and restaurants, a Lesotho edition for a different tax authority, and integrations that add fiscalisation to software a business already runs.',
@@ -67,7 +66,7 @@ const allProjectRecords: Project[] = [
       body: 'The difficult part of business software is rarely the screen. It is a sale made with no connection, a receipt fiscalised hours later, a transaction that must never be submitted twice, a counter that must never go backwards, and books that still have to reconcile. That problem space is drawn below.',
     },
     results: {
-      body: 'FiscalStack is a trading business with products in use. This study does not print customer counts; figures like that go stale the week they are published. The engineering is the evidence, and it is on the sheets that follow.',
+      body: 'FiscalStack operates a product line for fiscal point of sale, business workflows and integrations. The sheets that follow examine the engineering without publishing customer data or unsupported adoption figures.',
     },
     stack: [
       { name: 'C#', evidence: 'inspected' },
@@ -82,7 +81,7 @@ const allProjectRecords: Project[] = [
     plates: [
       { alt: 'Reserved plate for the FiscalStack logo and product overview.', caption: 'FiscalStack brand plate. The company\u2019s own logo goes here, unaltered.', nature: 'awaiting' },
     ],
-    related: ['fiscalstack-engine', 'fiscalstack-retail', 'fiscalstack-restaurant', 'fiscalstack-fieldpos', 'fiscalstack-lesotho', 'fiscalstack-integrations', 'clubstack', 'edustack'],
+    related: ['fiscalstack-engine', 'fiscalstack-retail', 'fiscalstack-restaurant', 'fiscalstack-fieldpos', 'fiscalstack-web', 'fiscalstack-lesotho', 'fiscalstack-integrations', 'clubstack', 'edustack'],
     diagram: 'fiscal-problem-space',
   },
 
@@ -96,13 +95,13 @@ const allProjectRecords: Project[] = [
     mechanisms: ['A', 'B', 'D'],
     status: 'built',
     statusEvidence: 'inspected',
-    summary: 'The till. Ring it up, fiscalise it, move the stock, and do it before the queue starts sighing. Keeps selling with the internet gone.',
+    summary: 'The Windows till: ring up, fiscalise, manage stock and keep trading offline. The queue is a ruthless load test.',
     accent: 'ink',
     role: {
-      body: 'Product owner and developer. The project\u2019s own product description records his requirements as hard rules, and they read like someone who has stood behind a counter: the only difference between test and production must be the server address; tax rates come from the product list and are never typed twice; the end-of-day button says \u201cClose Day\u201d; and receipt counters must be secured so that \u201cthey can never be spoilt\u201d.',
+      body: 'Product owner and developer. The recorded requirements focus on predictable environment switching, tax rates kept with product data, a clear day-close workflow and reliable receipt numbering.',
     },
     problem: {
-      body: 'A retail till does several jobs at once: ring up a basket quickly, produce a fiscal receipt the authority accepts, move stock, and leave a trail the back office can reconcile. In a shop, the queue is the specification. If the software makes the cashier wait, nobody cares how elegant the data model is, least of all the customer holding a loaf of bread and a grudge.',
+      body: 'A retail till has to ring up a basket quickly, produce an accepted fiscal receipt, update stock and leave records the back office can reconcile. In a shop, the queue is the specification: a slow sale is visible to everyone waiting behind it.',
     },
     constraints: {
       facts: [
@@ -121,14 +120,12 @@ const allProjectRecords: Project[] = [
     },
     decisions: {
       facts: [
-        f('Test and production are told apart by the authority\u2019s server address alone; the matching tax identifiers follow automatically, so nobody edits configuration by hand to go live.'),
-        f('Receipt counters are guarded so they can only move forward, with an audit trail and automatic correction of damaged values.'),
-        f('A rejection from the authority is shown to the cashier as the real error and does not advance the day; a transport failure drops the till into offline mode instead.'),
-        f('Credit and debit notes need a supervisor\u2019s approval and a lookup of the original invoice.'),
+        f('Test and production configuration is explicit, and product tax data is maintained with the product catalogue.'),
+        f('Day-close and credit-note workflows include operator checks intended to reduce avoidable errors.'),
       ],
     },
     challenges: {
-      body: 'The project notes keep an unusually candid list of what was fixed and what remains. Examples from the fixed column: an onboarding step that could wipe every user rather than only the seeded defaults; a database counter routine that could be fed unexpected input; a status check that could hang forever if the engine stalled; a till that could be opened twice. The remaining items are recorded as low severity and owned, not hidden.',
+      body: 'The core challenge is to keep a sale usable for the cashier while maintaining an accurate fiscal and stock record. The application separates the point-of-sale workflow from the shared fiscal component and keeps day-close operations explicit.',
     },
     results: {
       facts: [
@@ -187,7 +184,7 @@ const allProjectRecords: Project[] = [
       ],
     },
     decisions: {
-      body: 'The files keep a plain list of what the reference system does that this one does not do yet, ranked by priority. At the top: per-item printer routing, a customer-facing display, and refunds on settled restaurant bills. Further down: multi-terminal operation, department and delivery routing, and an automation rules engine. Keeping that list in the repository instead of in someone\u2019s head is a decision in itself.',
+      body: 'The product is organized around open orders and tables rather than a single checkout queue. That distinction drives the order, kitchen and payment flows; it is not a retail till with restaurant labels pasted on.',
     },
     challenges: { awaiting: ['A real service-time problem from a site and how it was fixed.'] },
     results: {
@@ -225,15 +222,13 @@ const allProjectRecords: Project[] = [
     constraints: {
       facts: [
         f('The host system is someone else\u2019s product and cannot be recompiled.'),
-        s('Client details and credentials stay confidential.'),
       ],
     },
     architecture: {
       body: 'Two integration patterns appear in the files.',
       facts: [
-        f('A plug-in module that turns a widely used Windows point-of-sale application into a ZIMRA fiscal device without recompiling it. It fiscalises each sale before the host saves it, so nothing is stored that the authority has not accepted (a fiscal failure aborts the sale, configurably), and it takes over the host\u2019s fiscal-printer service for end-of-day reports and reprints while still delegating to the host\u2019s own receipt layout.'),
-        f('Installed and removed by script, with the host\u2019s original workflow file backed up first, so the host can be put back exactly as it was.'),
-        f('The September 2026 specification for a fiscal print driver describes a stand-alone Windows application intended to accept A4 invoices from billing software, fiscalise them, print the fiscalised copy and keep a local journal for submission.'),
+        f('A plug-in integration connects an existing Windows point-of-sale product to the FiscalStack fiscal engine without replacing its front end.'),
+        f('A separate fiscal print-driver project is specified as a Windows application for receiving, fiscalising and printing invoices from billing software.'),
       ],
     },
     decisions: {
@@ -264,11 +259,11 @@ const allProjectRecords: Project[] = [
     mechanisms: ['B', 'D', 'A'],
     status: 'built',
     statusEvidence: 'inspected',
-    summary: 'The part nobody sees and everybody depends on. Counters, signatures, certificates and the fiscal day, packaged as one library every FiscalStack product calls.',
+    summary: 'The shared .NET component behind FiscalStack\u2019s fiscal products: one place for device operations, document signing and offline submission.',
     accent: 'cobalt',
     role: { body: 'Designed and built by the subject as the shared core of the product line.' },
     problem: {
-      body: 'Every till, integration and driver FiscalStack sells has to say exactly the same thing to the tax authority, in exactly the same order, with counters that never repeat and signatures that always verify. Writing that logic once, and refusing to write it twice, is what makes the rest of the product line possible.',
+      body: 'Every fiscal product needs a consistent way to communicate with the authority and keep working when a connection drops. The engine centralizes that work so the POS applications and integrations do not each implement their own version of the rules.',
     },
     constraints: {
       facts: [
@@ -278,14 +273,12 @@ const allProjectRecords: Project[] = [
     },
     architecture: {
       facts: [
-        f('A .NET class library exposing the fiscal device operations: configuration, status, open day, submit receipt, submit a batch file, close day.'),
-        f('Local SQLite database for receipt counters, the global receipt number, fiscal day numbers and hashes, queued transactions and per-day tax summaries.'),
-        f('Issues and manages the X.509 certificate chain the device needs, and signs receipts and day-close payloads.'),
-        f('Every call returns the same small JSON envelope (success flag, message, payload), so callers in different products handle results the same way.'),
-        f('Licensing verified on the device itself, with a grace period for sites that stay offline.'),
+        f('A .NET class library provides a shared interface for device setup, fiscal status, day operations, receipt submission and batch submission.'),
+        f('SQLite stores local fiscal records and queued work for offline operation.'),
+        f('Fiscal document signing and response handling sit behind the shared engine interface.'),
       ],
     },
-    decisions: { body: 'One engine, many front ends. The retail POS, the restaurant POS, the Lesotho edition, the third-party POS module and the print driver all call this library rather than carrying their own copy of the fiscal rules.' },
+    decisions: { body: 'One engine, many front ends. The retail POS, restaurant POS, Lesotho edition and integrations share the same fiscal component instead of maintaining separate implementations.' },
     challenges: { awaiting: ['A hard bug in counters, signing or day close, and how it was found.'] },
     results: { awaiting: ['Anything publishable about devices registered or receipts processed.'] },
     stack: [
@@ -366,7 +359,7 @@ const allProjectRecords: Project[] = [
       awaiting: ['Confirm role and whether anyone else worked on it.'],
     },
     problem: {
-      body: 'People preparing for the VID provisional licence theory test mostly study on a phone, on data that is expensive when it exists. A study tool that needs a connection for every question stops working exactly when there are twenty minutes to kill. Zivvvo keeps the practice loop on the device, explains every answer, and steers the learner back towards the road signs they keep insisting mean something else.',
+      body: 'People preparing for the VID provisional licence theory test mostly study on a phone, on data that is expensive when it exists. A study tool that needs a connection for every question stops working exactly when there are twenty minutes to kill. Zivvvo keeps       The practice loop works on the device, explains answers and returns attention to topics that need more study.',
     },
     constraints: {
       facts: [
@@ -426,10 +419,10 @@ const allProjectRecords: Project[] = [
     summary: 'A whole club in one system: members, cards, accounts, the bar, the pro shop, the tee sheet and the books. It started at a golf club. It is not a golf product.',
     accent: 'ink',
     role: {
-      body: 'Product owner, architect and developer. The repository is the most disciplined thing in this study: nine numbered specification phases before the first line of code, then numbered delivery stages, each closed by a written report that has to prove its claims. The coding is done with AI agents working to his specifications, and his hand-over instructions to them are explicit: never invent product rules, never claim a test passed without running it, never call a failure \u201cpre-existing\u201d without evidence.',
+      body: 'Product owner, architect and developer. The repository records staged specifications, implementation work and QA plans for a modular club-management system.',
     },
     problem: {
-      body: 'A club runs on members. Members have accounts and cards; the bar, the restaurant and the pro shop charge to those accounts; subscriptions fall due; the tee sheet fills; and somebody at the gate needs to know who is a member and who is merely confident. Most clubs hold this together with several disconnected systems and a cashier\u2019s memory. ClubStack\u2019s product bible states the opposite principle first: one system, not many.',
+      body: 'A club runs on connected workflows: membership, accounts, food and beverage, the pro shop, bookings and finance. ClubStack is designed to bring them into one system, rather than asking staff to reconcile several disconnected tools by hand.',
     },
     constraints: {
       facts: [
@@ -456,12 +449,12 @@ const allProjectRecords: Project[] = [
       ],
     },
     challenges: {
-      body: 'The stage reports read like an audit trail. One records an earlier version of a stage instruction as \u201cunauthorized\u201d and replaced. Another stops work and files a \u201cblocked\u201d report rather than guess at an unresolved rule. A third notes, against its own earlier claim, that a set of \u201crace-safety\u201d tests were state-machine tests and not true concurrency tests, and sends the work back until real concurrent tests exist.',
+      body: 'The design has to keep member accounts, sales, inventory and finance consistent while allowing each module to evolve. The repository separates those concerns inside a modular application and records testing as a distinct stage before production readiness.',
     },
     results: {
       facts: [
-        f('Stage D11 (pro shop) recorded as feature-complete with QA pending, 15 October 2026: domain tests 391/391, application 87/87, API 304/304, integration against real PostgreSQL databases 334/335, with the one failure identified and recorded as unrelated.'),
-        f('Browser-level tests with Playwright, and a dedicated full-system QA stage scheduled before production readiness.'),
+        f('The repository records automated domain, application, API and PostgreSQL integration test suites, with browser testing using Playwright.'),
+        f('The reviewed delivery stage is feature-complete with final QA still pending; no production deployment is claimed.'),
       ],
       awaiting: ['Delivery date or first site, if publishable.'],
     },
@@ -491,29 +484,43 @@ const allProjectRecords: Project[] = [
     mechanisms: ['A', 'B', 'F'],
     status: 'live',
     statusEvidence: 'verified',
-    summary: 'School management for one platform and many schools, each pretending the others do not exist. Live behind a sign-in at edustack.co.zw.',
+    summary: 'A multi-tenant school platform with separate workspaces for school staff, teachers, students and parents. Each school gets its own colours, name and logo; the archive has checked the boundaries, not the adoption figures.',
     accent: 'ink',
     role: { body: 'Product and engineering, under FiscalStack Solutions.' },
     problem: {
-      body: 'Schools run on a mixture of spreadsheets, paper and goodwill, and the goodwill is doing most of the work. EduStack is multi-tenant school-management software: one platform serving many schools, where each school sees only its own administrators, teachers, students and parents, and a parent sees only their own child.',
+      body: 'One school platform has to answer a different question for each person who enters it. Administrators need the school records; teachers need their assigned classes; students need their own attendance and published results; parents need a view of their child. EduStack puts those roles in separate workspaces and gives each school its own identity within a shared platform.',
     },
     constraints: {
       facts: [
-        s('Multi-tenant: school data must stay separate.'),
-        s('Roles: platform administrator, school administrator, teacher, student, parent.'),
+        f('The project documentation and role-specific pages describe a platform administrator, school administrator, teacher, student and parent workspace.'),
+        f('School branding uses tenant configuration for the school name, colours and logo.'),
       ],
     },
     architecture: {
-      facts: [v('A sign-in portal titled \u201cEduStack | FiscalStack Solutions\u201d is live at edustack.co.zw, with invitation-based account acceptance.')],
-      awaiting: ['Implementation details once the codebase has been reviewed.'],
+      body: 'The reviewed checkout is a lightweight front end: vanilla JavaScript modules, HTML and CSS, without a bundler. Its docs describe Supabase Auth, PostgreSQL row-level security and Edge Functions; the current client also contains a custom API adapter, so this sheet does not claim the backend wiring is verified.',
+      facts: [
+        v('The public portal titled "EduStack | FiscalStack Solutions" was reachable at edustack.co.zw on 25 October 2026.'),
+        f('School-admin pages cover academics, students, staff, announcements, report cards, timetable and finance.'),
+        f('Teacher assignments are queried in the context of both the school and the teacher account.'),
+        f('Student pages read the linked profile, enrolment, attendance, results and announcements; assessment results are filtered to those marked published.'),
+        f('A platform-admin area includes tenant onboarding and platform metrics.'),
+      ],
     },
-    decisions: { awaiting: ['Tenancy model and permission design.'] },
-    challenges: { awaiting: ['Material from the build.'] },
+    decisions: {
+      body: 'The visible design separates school staff, teachers, students and parents by role, and carries the tenant identity into the interface. The documentation describes a database-backed tenancy model; the reviewed source snapshot does not contain its server implementation, so the data boundary remains a design claim rather than an independently validated guarantee.',
+    },
+    challenges: {
+      body: 'The evidence file has two layers: working role-specific pages in the checkout, and documentation for backend services that are not present in the same snapshot. The sensible finding is to report the workflows that can be inspected and leave production behaviour unclaimed.',
+    },
     results: {
-      body: 'The portal is deployed. What sits behind the sign-in is for schools, not for this study, until there is something publishable to show.',
-      awaiting: ['Status: what is built, what is planned; whether any schools are using it.'],
+      body: 'The subject reports a live sign-in portal. The checkout supports describing the front-end workflows, but does not establish school adoption or end-to-end production readiness.',
     },
-    stack: [],
+    stack: [
+      { name: 'HTML, CSS, vanilla JavaScript modules', evidence: 'inspected' },
+      { name: 'Supabase Auth, PostgreSQL and RLS (documented)', evidence: 'stated' },
+      { name: 'Supabase Edge Functions (documented)', evidence: 'stated' },
+      { name: 'Static hosting', evidence: 'inspected' },
+    ],
     links: [{ label: 'edustack.co.zw', href: places.edustack, kind: 'product' }],
     plates: [{ alt: 'Reserved plate: EduStack interface.', caption: 'Interface to follow.', nature: 'awaiting' }],
     related: ['clubstack', 'zivvvo', 'brain-bunchy'],
@@ -523,25 +530,39 @@ const allProjectRecords: Project[] = [
   {
     slug: 'supporta',
     item: 8,
-    hidden: true,
     name: 'Supporta',
     kind: 'engineering',
     mechanisms: ['B'],
-    status: 'unconfirmed',
-    statusEvidence: 'pending',
-    summary: 'On the parts list, still in its crate. The folder offered to the researcher was empty, so this sheet waits.',
+    status: 'prototype',
+    statusEvidence: 'stated',
+    summary: 'An early-stage support platform, with the scaffold in place and the actual service still to be built. The file is open; the evidence is not yet a product.',
     accent: 'ink',
-    role: { awaiting: ['Role.'] },
-    problem: { awaiting: ['The D:\\SUPPORTA folder appeared empty when listed on 25 October 2026. Share the folder that holds the code.'] },
-    constraints: { awaiting: ['Constraints.'] },
-    architecture: { awaiting: ['Architecture, from the code.'] },
-    decisions: { awaiting: ['Key decisions.'] },
-    challenges: { awaiting: ['Testing evidence, with date.'] },
-    results: { awaiting: ['Status, and a link if it is public.'] },
-    stack: [],
-    links: [],
+    role: { body: 'The subject identifies Supporta as an experimental project. The inspected repository is an application scaffold rather than a finished service.' },
+    problem: {
+      body: 'Supporta is presented as a way to support people creating work others value. The repository currently establishes the technical starting point, not the full product workflow or a functioning payment service.',
+    },
+    constraints: {
+      facts: [s('The project is experimental and should not be mistaken for an operating financial service.')],
+    },
+    architecture: {
+      body: 'The scaffold declares a web application with authentication, database, audit and settlement as planned areas. Those directory names are an outline, not proof that the flows have been implemented.',
+    },
+    decisions: {
+      facts: [f('The package manifest declares Next.js 14, React 18, TypeScript, NextAuth, Drizzle ORM, PostgreSQL, Zod, Jest and Tailwind CSS.')],
+    },
+    challenges: {
+      body: 'At the inspected revision, the app routes, components, data layer and tests are not present. There is not yet enough implementation to describe how a payment, settlement or support flow works.',
+    },
+    results: { body: 'The repository is a scaffold. The subject has supplied supporta.co.zw as the intended public address; a live product or completed deployment was not established from the checked files.' },
+    stack: [
+      { name: 'Next.js 14, React 18, TypeScript', evidence: 'inspected' },
+      { name: 'NextAuth, Zod', evidence: 'inspected' },
+      { name: 'Drizzle ORM, PostgreSQL', evidence: 'inspected' },
+      { name: 'Tailwind CSS, Jest', evidence: 'inspected' },
+    ],
+    links: [{ label: 'supporta.co.zw', href: places.supporta, kind: 'product' }],
     plates: [],
-    related: ['clubstack'],
+    related: ['fiscalstack-web', 'clubstack'],
   },
 
   /* ------------------------------------------------------------------ */
@@ -554,11 +575,11 @@ const allProjectRecords: Project[] = [
     mechanisms: ['D', 'B'],
     status: 'live',
     statusEvidence: 'stated',
-    summary: 'The bouncer of the operation. A QR code checking system on the Chaos Cup site, so the question \u201care you meant to be here?\u201d takes one scan instead of one argument.',
+    summary: 'A QR verification feature in the Chaos Cup event site, built for the check-in workflow. Event-day operation and validation rules are not claimed here.',
     accent: 'signal',
     role: { body: 'Built by the subject as part of the Chaos Cup software, which he wrote in full.' },
     problem: {
-      body: 'An event with tickets has a gate, and a gate has a queue of people who are all quite sure they paid. Paper lists and squinting do not scale, and a co-host does not want to spend the day being the list. Chaos-Verify moves that job onto a phone: scan the code, get an answer, wave the person through.',
+      body: 'The event site includes a /verify section for checking Chaos Cup entries. The feature is documented as part of the event software; the reviewed material does not establish its on-site operating process.',
       facts: [s('Chaos-Verify is the QR code checking system of the Chaos Cup, found at the /verify section of the event website.')],
       awaiting: ['What the QR codes are issued for (tickets, entries, results), and what a scan returns.'],
     },
@@ -582,11 +603,11 @@ const allProjectRecords: Project[] = [
     mechanisms: ['C'],
     status: 'completed',
     statusEvidence: 'stated',
-    summary: 'Can a model tell who is winning before the commentators admit it? The subject\u2019s dissertation, ball by ball.',
+    summary: 'A dissertation project on estimating One Day International match outcomes as the match unfolds, using ball-by-ball data.',
     accent: 'cobalt',
     role: { body: 'Sole researcher, BSc Honours in Data Science and Systems, University of Zimbabwe.' },
     problem: {
-      body: 'A pre-match prediction is easy to make and easy to forget. His question was how the probability of each result should move ball by ball, as wickets fall and the required rate climbs, and whether a model can track that honestly instead of panicking after every boundary like a man in the stands.\n\nWorking title: \u201cPredictive Analytics in Cricket: A Hybrid Bayesian-Machine Learning Approach for Real-time ODI Outcome Prediction.\u201d',
+      body: 'A pre-match prediction misses the changing state of a match. The research asks how an outcome estimate should update ball by ball as wickets fall, overs pass and the required rate changes.',
       awaiting: ['Confirm exact title against the submitted dissertation.'],
     },
     constraints: {
@@ -606,7 +627,7 @@ const allProjectRecords: Project[] = [
     decisions: { awaiting: ['Why a hybrid approach rather than a single model.'] },
     challenges: { awaiting: ['Leakage, calibration, class balance: whichever actually bit.'] },
     results: {
-      body: 'This is research, not a product, and it was not deployed. No accuracy figures appear here until they can be copied from the final document. Memory is a generous statistician.',
+      body: 'This is academic research, not a deployed product. Performance figures are omitted until they can be checked against the submitted dissertation.',
       awaiting: ['Findings and metrics from the final dissertation.', 'PDF or abstract to link.'],
     },
     stack: [
@@ -736,13 +757,13 @@ const allProjectRecords: Project[] = [
     mechanisms: ['F', 'A'],
     status: 'operating',
     statusEvidence: 'stated',
-    summary: 'School quiz tournaments, debates and adjudication. The subject is usually the one holding the answer card.',
+    summary: 'School quiz tournaments, debate programmes and adjudication, alongside training and educational events.',
     accent: 'chartreuse',
     role: {
-      body: 'Part-time co-owner, involved in day-to-day operations. Quizmaster, adjudicator, trainer and organiser. He also took winning students to Botswana as their patron, a sentence that contains a great deal of paperwork.',
+      body: 'Part-time co-owner involved in operations, quizmastering, adjudication, training and event organisation. He also accompanied winning students to Botswana as their patron.',
     },
     problem: {
-      body: 'School competitions need somebody to write fair questions, run the room, keep a score everybody trusts, and deal with teachers, parents, venues and buses. Most of that is operations wearing a blazer. The rest is standing in front of a hall of teenagers and being right.',
+      body: 'School competitions depend on clear questions, consistent scoring and steady event facilitation. The work combines preparation, adjudication and coordination with schools and participants.',
     },
     constraints: {
       facts: [
@@ -769,7 +790,7 @@ const allProjectRecords: Project[] = [
     mechanisms: ['B', 'E', 'F'],
     status: 'live',
     statusEvidence: 'verified',
-    summary: 'An adult field day in Harare that the subject co-hosts, and whose software he wrote in full: tickets, results, a Hall of Fame and QR code checking at the gate.',
+    summary: 'An adult field day in Harare, co-hosted by the subject and supported by event software for tickets, results, a Hall of Fame and QR verification.',
     accent: 'signal',
     role: {
       facts: [
@@ -778,7 +799,7 @@ const allProjectRecords: Project[] = [
       ],
     },
     problem: {
-      body: 'A field day for adults needs the same things a school sports day needs, minus the parents shouting from the stands, plus grown-ups who will absolutely dispute a result. That means somewhere to issue tickets, somewhere to check them, somewhere to publish results quickly, and a Hall of Fame so the winners can be insufferable in an organised way. As co-host and sole developer, the subject was on both sides of every one of those problems.',
+      body: 'The event needs a clear path from ticket information to check-in, published results and a record of winners. As co-host and developer, the subject worked across both event operations and the supporting site.',
       facts: [
         v('Event site for the Chaos Cup Adult Field Day, 26 September 2026, at the Botanical Gardens, Harare.'),
         v('Sections for tickets and results and a Hall of Fame, with an admin area for organisers.'),
@@ -802,28 +823,216 @@ const allProjectRecords: Project[] = [
     parent: 'fiscalstack',
     kind: 'commercial',
     mechanisms: ['A', 'B'],
-    status: 'built',
-    statusEvidence: 'stated',
-    summary: 'The till, in a pocket. FieldPOS is the Android edition of FiscalStack POS, for selling where a Windows machine on a counter is not an option.',
+    status: 'in-development',
+    statusEvidence: 'inspected',
+    summary: 'FiscalStack away from the counter: a mobile POS with sales, inventory, reporting and ticketing screens, plus a separate desktop client. The source shows the surfaces; deployment is not assumed.',
     accent: 'ink',
-    role: { body: 'Product owner and developer, under FiscalStack Solutions.' },
+    role: { body: 'Product development under FiscalStack Solutions, as reported by the subject.' },
     problem: {
-      body: 'Not every sale happens at a counter. Some businesses sell from a vehicle, a stall, a doorstep or a crowd, and a desktop till does not travel. FieldPOS carries FiscalStack onto an Android device, so the same business can sell in the field and keep its records in one product family.',
+      body: 'Not every sale happens at a counter. FieldPOS explores a mobile point of sale for work away from the fixed till, with code for sales and bus-ticketing workflows as well as inventory, customers, suppliers, expenses and reports.',
       facts: [
-        s('The Android edition of FiscalStack POS.'),
-        s('Built with React. An earlier .NET MAUI version exists in the codebase but is not the one in use.'),
+        f('The mobile package is an Expo and React Native application.'),
+        f('The repository also contains a separate Electron desktop POS package with Windows and Linux build scripts.'),
       ],
-      awaiting: ['Which features match the Windows till; how fiscalisation is handled on the device; offline behaviour.'],
     },
-    constraints: { awaiting: ['Devices and printers supported.'] },
-    architecture: { awaiting: ['How FieldPOS talks to the fiscal engine or authority.'] },
-    decisions: { awaiting: ['Why React for the Android edition.'] },
-    challenges: { awaiting: ['Something hard about selling on a phone.'] },
-    results: { awaiting: ['Status: pilot or in use.'] },
-    stack: [{ name: 'React', evidence: 'stated' }, { name: 'Android', evidence: 'stated' }],
+    constraints: {
+      body: 'The mobile and desktop clients are separate packages. The reviewed source does not establish a production deployment or prove that every screen is connected to the same fiscal workflow as the Windows till.',
+    },
+    architecture: {
+      facts: [
+        f('The mobile app uses Expo and React Native; the web and API platform is a separate package in the repository.'),
+        f('The desktop POS uses Electron and includes serial-port support.'),
+        f('The mobile README describes shared sign-in/backend dependencies and local pause/resume state; transport-route integration is listed as future work.'),
+      ],
+    },
+    decisions: {
+      body: 'The codebase keeps the mobile client distinct from its Electron desktop counterpart. The product surface is being explored across devices rather than presented as one finished, interchangeable client.',
+    },
+    challenges: {
+      body: 'The public record stops at what the checked files show: screens and packaging for multiple clients. Device support, fiscalisation behaviour, offline guarantees and operational use need separate evidence before they belong in the catalogue.',
+    },
+    results: { body: 'The repository contains active product code and platform build configuration. This sheet does not claim a live rollout or customer adoption.' },
+    stack: [
+      { name: 'Expo, React Native, TypeScript', evidence: 'inspected' },
+      { name: 'Electron, React, TypeScript', evidence: 'inspected' },
+      { name: 'Node.js, Express', evidence: 'inspected' },
+      { name: 'PostgreSQL, Drizzle ORM', evidence: 'inspected' },
+      { name: 'Supabase client libraries', evidence: 'inspected' },
+    ],
     links: [{ label: 'fiscalstack.co.zw', href: places.fiscalstackZw, kind: 'company' }],
     plates: [{ alt: 'Reserved plate: FieldPOS on an Android phone.', caption: 'FieldPOS on a phone.', nature: 'awaiting' }],
-    related: ['fiscalstack-retail', 'fiscalstack-engine', 'fiscalstack'],
+    related: ['fiscalstack-retail', 'fiscalstack-engine', 'fiscalstack-web', 'fiscalstack'],
+  },
+  {
+    slug: 'fiscalstack-web',
+    item: 19,
+    name: 'FiscalStack Web',
+    parent: 'fiscalstack',
+    kind: 'commercial',
+    mechanisms: ['A', 'B', 'D'],
+    status: 'in-development',
+    statusEvidence: 'inspected',
+    summary: 'A broad business platform with routes for invoicing, inventory, purchasing, manufacturing, accounting, reports, point of sale and bus ticketing. One menu; several industries.',
+    accent: 'cobalt',
+    role: { body: 'Product engineering under FiscalStack Solutions, as reported by the subject.' },
+    problem: {
+      body: 'A business platform is asked to be several things at once: write an invoice, keep stock, record a purchase, account for the money and answer the question the owner asks at month end. The web application brings those workflows into one product, with additional screens for point of sale and transport ticketing.',
+    },
+    constraints: {
+      facts: [
+        f('A shared permission catalog defines owner, administrator, cashier, accountant and manager roles, with navigation and action permissions.'),
+        f('The codebase separates the browser client, server, shared data definitions and mobile/desktop packages.'),
+      ],
+    },
+    architecture: {
+      facts: [
+        f('The web client uses React, TypeScript and Vite.'),
+        f('The API is built with Node.js and Express; PostgreSQL persistence is accessed through Drizzle ORM.'),
+        f('The repository includes separate Expo/React Native mobile and Electron desktop POS clients, described on the FieldPOS sheet.'),
+      ],
+    },
+    decisions: {
+      body: 'The application groups a wide set of business workflows behind shared roles and a common data layer. The permission catalog is the map; it is not, by itself, proof that every route or deployment has been independently security-reviewed.',
+    },
+    challenges: {
+      body: 'The visible scope crosses accounts, stock, sales, manufacturing and transport. Keeping each workflow legible while reusing the same user and permission model is the engineering problem recorded in the source.',
+    },
+    results: {
+      body: 'The repository contains client routes, API code, shared permission definitions and client packages. This sheet describes the implementation surface, not a verified production rollout or customer count.',
+    },
+    stack: [
+      { name: 'React, TypeScript, Vite', evidence: 'inspected' },
+      { name: 'Node.js, Express', evidence: 'inspected' },
+      { name: 'PostgreSQL, Drizzle ORM', evidence: 'inspected' },
+      { name: 'Supabase client libraries', evidence: 'inspected' },
+    ],
+    links: [{ label: 'FiscalStack Solutions', href: places.fiscalstackZw, kind: 'company' }],
+    plates: [],
+    related: ['fiscalstack', 'fiscalstack-fieldpos', 'fiscalstack-engine', 'fiscalstack-retail'],
+  },
+  {
+    slug: 'the-interrogation',
+    item: 20,
+    name: 'The Interrogation',
+    kind: 'game',
+    mechanisms: ['E', 'B'],
+    status: 'prototype',
+    statusEvidence: 'stated',
+    summary: 'A browser mystery in which the evidence is in what people say, what they omit and which version of events survives a second reading.',
+    accent: 'signal',
+    role: { body: 'An experimental project the subject is still developing, as reported by the subject.' },
+    problem: {
+      body: 'The player chooses a case, interviews its characters, reads the transcripts and decides who to accuse. The mystery is deterministic: the case has a solution, and a hunch is not the same thing as evidence.',
+    },
+    constraints: {
+      facts: [
+        f('The project brief describes deterministic cases, clue collection, contradiction checking and an accusation flow.'),
+        f('The current public build offers case selection, character panels, transcripts and a reveal.'),
+      ],
+    },
+    architecture: {
+      body: 'A static browser application, packaged as a progressive web app. It can be hosted as files; the current build labels itself as a test build.',
+    },
+    decisions: {
+      body: 'The player has to build a theory from interviews instead of waiting for a narrator to underline the answer. The current cases are test material, not a daily mystery service.',
+    },
+    challenges: {
+      body: 'A deterministic mystery must make its evidence readable without making the answer obvious. The experiment is still being tuned; this file records a prototype, not a polished release.',
+    },
+    results: {
+      body: 'The public page is explicitly marked as a test build. It remains an experiment while the case design and investigative loop are being worked out.',
+    },
+    stack: [
+      { name: 'Preact, TypeScript', evidence: 'inspected' },
+      { name: 'Vite', evidence: 'inspected' },
+      { name: 'Progressive Web App plugin', evidence: 'inspected' },
+      { name: 'Static client-side deployment', evidence: 'inspected' },
+    ],
+    links: [{ label: 'Open The Interrogation test build', href: places.interrogation, kind: 'product' }],
+    plates: [],
+    related: ['crazy-eights', 'stacked'],
+    experiment: { playable: 'prototype', tagline: 'Interview first. Accuse only after the stories stop agreeing.' },
+  },
+  {
+    slug: 'tee-and-co',
+    item: 21,
+    name: 'Tee & Co.',
+    kind: 'engineering',
+    mechanisms: ['B', 'E'],
+    status: 'live',
+    statusEvidence: 'stated',
+    summary: 'A static website for an accounting and advisory firm: service information, clear routes for different audiences and an address book that does not make a visitor work for it.',
+    accent: 'chartreuse',
+    role: { body: 'Designed and built the company website, as reported by the subject.' },
+    problem: {
+      body: 'Professional services are easier to consider when the offer is clear. Tee & Co. needed a public site to explain its accounting, tax and advisory services and give prospective clients a straightforward way to find the relevant information.',
+    },
+    constraints: {
+      facts: [
+        f('The site is delivered as static HTML, CSS and JavaScript.'),
+        f('The page structure includes service descriptions, audience-specific pages, contact information and knowledge/insights sections.'),
+      ],
+    },
+    architecture: {
+      body: 'A lightweight static site, with no application server in the project architecture. The build is mostly markup, styles and browser-side JavaScript; the content does the heavier lifting.',
+    },
+    decisions: {
+      body: 'The presentation is organized around services and the people looking for them rather than around the machinery used to build the site.',
+    },
+    challenges: {
+      body: 'The work is chiefly editorial and structural: make a broad set of services easy to scan, give different audiences a useful starting point, and keep the site deliberately simple to serve.',
+    },
+    results: { body: 'A live-facing company website, with deployment reported by the subject.' },
+    stack: [
+      { name: 'HTML', evidence: 'inspected' },
+      { name: 'CSS', evidence: 'inspected' },
+      { name: 'JavaScript', evidence: 'inspected' },
+      { name: 'Static-site deployment', evidence: 'stated' },
+    ],
+    links: [{ label: 'Visit Tee & Co.', href: places.teeCo, kind: 'product' }],
+    plates: [],
+    related: ['fiscalstack-web', 'the-interrogation'],
+  },
+  {
+    slug: 'crazy-eights',
+    item: 22,
+    name: 'Crazy Eights Arcade',
+    kind: 'game',
+    mechanisms: ['E', 'B'],
+    status: 'prototype',
+    statusEvidence: 'stated',
+    summary: 'A card table for one or more: play against local AI, or invite people to a private online game. Still experimental; the table is being dealt, not declared tournament-ready.',
+    accent: 'signal',
+    role: { body: 'An experimental game project the subject is preparing for publication, as reported by the subject.' },
+    problem: {
+      body: 'A familiar card game is a compact test of state, turn order and hidden information. Crazy Eights Arcade pairs solo play against AI opponents with an optional invite-based multiplayer table.',
+    },
+    constraints: {
+      facts: [
+        f('The project documentation describes mobile-first play, solo AI opponents and optional online private tables.'),
+        f('Online games support invite links and mixed human/AI lobbies.'),
+      ],
+    },
+    architecture: {
+      body: 'The client is built with React, TypeScript and Vite. Online sessions use Supabase database and Edge Function components; local solo play does not require the online backend.',
+    },
+    decisions: {
+      body: 'Solo play stays available without a backend, while the online table is an optional mode. The game rules and server-side actions keep the shared table from becoming a shared trust exercise.',
+    },
+    challenges: {
+      body: 'Multiplayer means controlling who can see private hands and who can change the game state. The repository includes database policies and server-side functions for those boundaries; online deployment still requires its Supabase setup.',
+    },
+    results: {
+      body: 'The repository describes a deployment-ready experiment, but no public deployment is claimed here. The subject plans to publish it at timire.co.zw/crazy-eights.',
+    },
+    stack: [
+      { name: 'React, TypeScript, Vite', evidence: 'inspected' },
+      { name: 'Supabase client, database and Edge Functions', evidence: 'inspected' },
+    ],
+    links: [{ label: 'Planned Crazy Eights route', href: places.crazyEights, kind: 'other' }],
+    plates: [],
+    related: ['the-interrogation', 'stacked', 'speed-roulette'],
+    experiment: { playable: 'prototype', tagline: 'A private table, a local opponent and one more card to get rid of.' },
   },
 ]
 

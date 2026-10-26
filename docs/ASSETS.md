@@ -39,11 +39,15 @@ Keep the long edge between 1600 and 2400 px.
 | FiscalStack Restaurant | Tables and open orders | `fiscalstack/restaurant/01-tables.png` | Screenshot | Recommended |
 | FiscalStack Restaurant | Bill and payment | `fiscalstack/restaurant/02-bill.png` | Screenshot | Later |
 | FiscalStack Integrations | Data-flow diagram, client names removed | `fiscalstack/integrations/01-flow.svg` | Diagram | Recommended |
+| FiscalStack Web | Business workflow screen with all real customer data removed | `fiscalstack/web/01-workflow.png` | Screenshot | Later |
+| FieldPOS | Mobile POS screen with all real customer data removed | `fiscalstack/fieldpos/01-mobile.png` | Screenshot | Later |
 | Zivvvo | Practice question on a phone | `zivvvo/01-question.png` (portrait) | Screenshot | Recommended |
 | Zivvvo | Mistake review | `zivvvo/02-review.png` | Screenshot | Later |
 | ClubStack | Member account or cashier screen | `clubstack/01-member.png` | Screenshot | Later |
 | EduStack | Any interface | `edustack/01.png` | Screenshot | Later |
-| Supporta | Interface or architecture | `supporta/01.png` | Screenshot or diagram | Later |
+| Tee & Co. | Home or service page | `tee-and-co/01-home.png` | Screenshot | Later |
+| The Interrogation | Case selection without story spoilers | `interrogation/01-cases.png` | Screenshot | Later |
+| Crazy Eights Arcade | Gameplay screen with names and invite codes removed | `games/crazy-eights/01-game.png` | Screenshot | Later |
 | Chaos-Verify | Output or architecture | `chaos-verify/01.png` | Screenshot or diagram | Later |
 | STACKED | Gameplay capture (still or short WebM) | `games/stacked/01.png` | Capture | Recommended |
 | Speed Roulette | Gameplay capture | `games/speed-roulette/01.png` | Capture | Recommended |

@@ -1,15 +1,15 @@
-# Moving to timire.co.zw
+# Publishing under timire.co.zw
 
-The plan (October 2026) is to move this portfolio, *Rumblings of a Fool* and the
-games under `timire.co.zw`. FiscalStack, Zivvvo, EduStack and Chaos Cup keep
-their own domains.
+The portfolio is published at `timire.co.zw`. STACKED and Reaction Speed
+Roulette are linked at `/stacked` and `/speed-roulette`. TypeRace and the blog
+still use their current addresses; update them here when their routes move.
+FiscalStack, Zivvvo, EduStack and Chaos Cup keep their own domains.
 
 ## What changes in this code
 
 Every external address the site links to is in one file:
-`src/data/places.ts`. When the blog and the games have their new addresses,
-change `blog`, `stacked`, `speedRoulette` and `typeRace` there, run `npm test`,
-and deploy. No page has a hard-coded link to them.
+`src/data/places.ts`. Change the relevant entry there, run `npm test`, and
+deploy. No page has a hard-coded link to these products.
 
 The portfolio itself builds with absolute paths, so it can be served from the
 root of `timire.co.zw` as it is. `public/_redirects` (Netlify) and `vercel.json`

@@ -17,9 +17,9 @@ const capabilities: Record<MechanismId, string[]> = {
   ],
   B: [
     'C# and .NET: WPF desktop applications, ASP.NET Core, Entity Framework Core',
-    'REST APIs and integration with tax authorities, devices and other people’s software',
-    'SQLite, SQL Server, PostgreSQL; data modelling; offline queues and synchronisation',
-    'Web front ends in React and TypeScript',
+    'TypeScript and JavaScript: React, Preact, Vite, Expo / React Native and Electron',
+    'REST APIs, SQLite, SQL Server and PostgreSQL; data models, integrations and offline-aware workflows',
+    'Node.js and Express, with Drizzle ORM',
   ],
   C: [
     'Python: pandas, NumPy, scikit-learn, XGBoost, LightGBM, statsmodels',
@@ -30,9 +30,9 @@ const capabilities: Record<MechanismId, string[]> = {
     'Functional, regression, integration, exploratory, smoke, API and acceptance testing',
     'Automated suites in xUnit and Playwright, including integration tests against real databases',
     'Reproducing and investigating defects; validating data and workflows',
-    'Testing and directing code written with AI assistance',
+    'Release checks, defect triage and evidence-led test reporting',
   ],
-  E: ['Browser games and product experiments, three of them playable online'],
+  E: ['Browser games, a deterministic mystery and card-game prototypes; some builds are still marked as experiments'],
   F: ['Quizmaster, adjudicator and trainer', 'Educational events, debate and drama programmes', 'Rumblings of a Fool, his blog'],
 }
 
@@ -54,9 +54,9 @@ const notes: Note[] = [
   {
     text: (
       <>
-        He founded and runs <Link to="/projects/fiscalstack">FiscalStack Solutions</Link>. Its repositories show one
-        person in several roles at once: the owner writing hard requirements, the architect drawing the boundaries, the
-        developer, and the tester keeping a candid list of what is still broken.
+        He founded and runs <Link to="/projects/fiscalstack">FiscalStack Solutions</Link>. The project files place him
+        across product definition, architecture, development and verification; the record distinguishes shipped work
+        from code that is still in progress.
       </>
     ),
     evidence: 'inspected',
@@ -75,8 +75,9 @@ const notes: Note[] = [
   {
     text: (
       <>
-        He directs AI coding agents rather than trusting them. His written instructions forbid them to invent business
-        rules, claim a test passed without running it, or blame a failure on earlier work without evidence.
+        <Link to="/projects/edustack">EduStack</Link> gives each school a distinct identity and separates the workspaces
+        for administrators, teachers, students and parents. The visible workflows are in the file; backend adoption
+        figures are not.
       </>
     ),
     evidence: 'inspected',
@@ -93,11 +94,21 @@ const notes: Note[] = [
   {
     text: (
       <>
-        Away from the keyboard he co-hosts a field day for adults, has run school quiz tournaments, and writes a blog
-        that moves between the arguments for God and the Zimbabwean constitution.
+        Outside software, the record includes school quiz tournaments, educational programmes, adjudication and
+        writing. The archive keeps the details relevant to the work and leaves the rest in the notebook.
       </>
     ),
     evidence: 'stated',
+  },
+  {
+    text: (
+      <>
+        Not every entry is a commercial release. The catalogue also contains a static company website, an
+        investigative game prototype, a card-game experiment and a support-platform scaffold. Their labels say which
+        is which.
+      </>
+    ),
+    evidence: 'inspected',
   },
 ]
 
@@ -165,7 +176,7 @@ export default function AboutPage() {
               <dt>Also found in</dt>
               <dd>Data science, QA, product, small-business operations, school quiz halls, field days</dd>
               <dt>Behaviour</dt>
-              <dd>Keeps lists of his own defects</dd>
+              <dd>Records test results and engineering decisions</dd>
               <dt>Contact</dt>
               <dd>
                 <a href={`mailto:${profile.contact.email}`}>{profile.contact.email}</a>

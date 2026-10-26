@@ -55,7 +55,7 @@ test('every project sheet and article resolves', async ({ page }) => {
   await page.goto('/projects')
   await page.locator('table').waitFor()
   const projectLinks = await page.locator('table a[href^="/projects/"]').evaluateAll((as) => as.map((a) => a.getAttribute('href')!))
-  expect(projectLinks.length).toBeGreaterThanOrEqual(17)
+  expect(projectLinks.length).toBeGreaterThanOrEqual(22)
   await page.goto('/writing')
   await page.getByRole('heading', { level: 1 }).waitFor()
   const articleLinks = await page.locator('a[href^="/writing/"]').evaluateAll((as) => as.map((a) => a.getAttribute('href')!))
@@ -117,15 +117,15 @@ test('clicking a sector of the ring selects it', async ({ page, isMobile }) => {
 
 test('filters on the parts list are in the URL', async ({ page }) => {
   await page.goto('/projects?kind=game')
-  await expect(page.getByRole('status')).toHaveText(/3 of 17 items/)
+  await expect(page.getByRole('status')).toHaveText(/5 of 22 items/)
   await page.getByRole('link', { name: 'Clear filters' }).click()
-  await expect(page.getByRole('status')).toHaveText(/17 of 17 items/)
+  await expect(page.getByRole('status')).toHaveText(/22 of 22 items/)
 })
 
 test('invalid filter values are ignored without a runtime error', async ({ page }) => {
   const errors = watchErrors(page)
   await page.goto('/projects?kind=unknown&m=unknown&status=unknown')
-  await expect(page.getByRole('status')).toHaveText(/17 of 17 items/)
+  await expect(page.getByRole('status')).toHaveText(/22 of 22 items/)
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(/The Machinery/)
   expect(errors).toEqual([])
 })
@@ -179,7 +179,24 @@ test('contact sheet carries the real details and nothing invented', async ({ pag
 })
 
 test('published pages carry no editing labels or placeholders', async ({ page }) => {
-  const paths = ['/', '/about', '/projects', '/projects/fiscalstack', '/projects/fiscalstack-retail', '/projects/chaos-verify', '/projects/fiscalstack-fieldpos', '/experiments', '/writing', '/contact']
+  const paths = [
+    '/',
+    '/about',
+    '/projects',
+    '/projects/fiscalstack',
+    '/projects/fiscalstack-retail',
+    '/projects/chaos-verify',
+    '/projects/fiscalstack-fieldpos',
+    '/projects/fiscalstack-web',
+    '/projects/edustack',
+    '/projects/supporta',
+    '/projects/the-interrogation',
+    '/projects/tee-and-co',
+    '/projects/crazy-eights',
+    '/experiments',
+    '/writing',
+    '/contact',
+  ]
   for (const p of paths) {
     await page.goto(p)
     await page.getByRole('heading', { level: 1 }).waitFor()
@@ -191,8 +208,8 @@ test('published pages carry no editing labels or placeholders', async ({ page })
   }
 })
 
-test('held-back sheets are not published', async ({ page }) => {
-  await page.goto('/projects/supporta')
+test('unknown sheets are not published', async ({ page }) => {
+  await page.goto('/projects/no-such-sheet')
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(/missing from the binder/)
   await expect(page).toHaveTitle(/^Sheet not found/)
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow')
@@ -207,7 +224,6 @@ test('the production bundle excludes owner-only and hidden content', async ({ pa
     .map((path) => readFileSync(path, 'utf8'))
     .join('\n')
   const forbidden = [
-    'Supporta',
     'D:\\SUPPORTA',
     'Owner note',
     'Plate reserved',

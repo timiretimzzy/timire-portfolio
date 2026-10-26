@@ -62,9 +62,9 @@ export default function ProjectsPage() {
           <span className={styles.plain}>Projects and technical work</span>
         </h1>
         <p className={styles.intro}>
-          Everything on the parts list: the commercial products he builds and runs, engineering and integration work,
-          research, verification and the odd experiment. Product lines under FiscalStack are indented under the company.
-          Each item opens its own sheet.
+          Everything on the parts list: commercial products, client-facing work, engineering and integration, research,
+          verification and experiments in various states of assembly. Product lines under FiscalStack are indented
+          beneath the company. Each item opens its own sheet.
         </p>
       </section>
 

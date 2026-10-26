@@ -19,7 +19,28 @@ export function HomePage() {
   usePageTitle()
   // The front sheet shows the main assemblies; the archive has everything.
   const featured = projects.filter((p) =>
-    ['fiscalstack', 'fiscalstack-engine', 'fiscalstack-retail', 'fiscalstack-restaurant', 'fiscalstack-lesotho', 'fiscalstack-integrations', 'clubstack', 'zivvvo', 'edustack', 'cricket-odi-prediction', 'stacked', 'speed-roulette', 'typerace', 'chaos-cup'].includes(p.slug),
+    [
+      'fiscalstack',
+      'fiscalstack-engine',
+      'fiscalstack-retail',
+      'fiscalstack-restaurant',
+      'fiscalstack-lesotho',
+      'fiscalstack-integrations',
+      'fiscalstack-fieldpos',
+      'fiscalstack-web',
+      'clubstack',
+      'zivvvo',
+      'edustack',
+      'supporta',
+      'tee-and-co',
+      'the-interrogation',
+      'crazy-eights',
+      'cricket-odi-prediction',
+      'stacked',
+      'speed-roulette',
+      'typerace',
+      'chaos-cup',
+    ].includes(p.slug),
   )
 
   return (

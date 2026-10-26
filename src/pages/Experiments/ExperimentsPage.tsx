@@ -40,7 +40,7 @@ export default function ExperimentsPage() {
           <div className={styles.introText}>
             <p>
               Games, prototypes and product bets. This is the part of the machine that is allowed to rattle, so the
-              sheet looks different on purpose. Three of these are live: press Play and lose some time.
+              sheet looks different on purpose. Some are ready to play; others still have a test label on the crate.
             </p>
             <p className={styles.legendNote}>Every cartridge says what state it is in:</p>
             <ul className={styles.legend}>

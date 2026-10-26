@@ -3,7 +3,7 @@ import styles from './CaseStudy.module.css'
 /**
  * Notes for the site owner about missing material. Rendered only in
  * development builds; the published site never shows them. The same items
- * are collected in docs/CONTENT_TODO.md.
+ * remain out of public copy until there is evidence.
  */
 export function OwnerNotes({ items }: { items?: string[] }) {
   if (!import.meta.env.DEV || !items || items.length === 0) return null
