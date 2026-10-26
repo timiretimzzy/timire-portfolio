@@ -1,0 +1,227 @@
+/* ---------- Narrow screens: bar + index panel ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--paper);
+  border-bottom: var(--rule);
+}
+
+.bar {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  min-height: 3.5rem;
+}
+
+.home {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0 var(--gutter);
+  text-decoration: none;
+}
+
+.homeMark {
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: -0.02em;
+}
+
+.homeName {
+  font-family: var(--font-display);
+  font-stretch: 112%;
+  font-weight: 750;
+  font-size: 1.05rem;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0 var(--gutter);
+  min-width: 44px;
+  background: var(--manila);
+  border: 0;
+  border-left: var(--rule);
+  cursor: pointer;
+}
+
+.toggleLabel {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.toggleRange {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+}
+
+.tabs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: none;
+  border-top: var(--rule);
+}
+
+.nav[data-open] .tabs {
+  display: block;
+}
+
+.tab {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.6rem 1fr auto;
+  align-items: baseline;
+  gap: 0.25rem 0.5rem;
+  padding: 0.95rem var(--gutter);
+  border-bottom: var(--rule-hair);
+  text-decoration: none;
+}
+
+.tabNum {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+}
+
+.tabName {
+  font-family: var(--font-display);
+  font-stretch: 112%;
+  font-weight: 750;
+  font-size: 1.35rem;
+  line-height: 1.05;
+}
+
+.tabPlain {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--muted);
+}
+
+.lamp {
+  display: none;
+}
+
+.active {
+  background: var(--chartreuse);
+}
+
+.active .tabPlain {
+  color: var(--ink);
+}
+
+/* ---------- Wide screens: binder divider tabs ---------- */
+@media (min-width: 1100px) {
+  .nav {
+    position: fixed;
+    top: 0;
+    right: var(--edge);
+    bottom: 0;
+    width: var(--tab-w);
+    background: transparent;
+    border-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    padding-top: 1rem;
+  }
+
+  .bar {
+    flex-direction: column;
+    min-height: 0;
+    padding: 0 1rem 1.25rem 1rem;
+  }
+
+  .home {
+    padding: 0;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .homeMark {
+    width: 2.6rem;
+    height: 2.6rem;
+    font-size: 0.95rem;
+  }
+
+  .homeName {
+    font-size: 0.85rem;
+    font-stretch: 100%;
+  }
+
+  .toggle {
+    display: none;
+  }
+
+  .tabs {
+    display: block;
+    border-top: 0;
+  }
+
+  .tabs li + li {
+    margin-top: 6px;
+  }
+
+  .tab {
+    grid-template-columns: 1fr;
+    gap: 0.1rem;
+    padding: 0.7rem 0.9rem 0.75rem 1rem;
+    background: var(--manila);
+    border: var(--rule);
+    border-left-width: 0;
+    margin-left: 0;
+    transition: transform var(--t-quick) var(--ease-out), background-color var(--t-quick);
+  }
+
+  .tab:hover {
+    transform: translateX(-4px);
+    background: var(--cream);
+  }
+
+  .tabNum {
+    font-size: var(--step--2);
+  }
+
+  .tabName {
+    font-size: 0.98rem;
+    font-stretch: 92%;
+  }
+
+  .tabPlain {
+    font-size: var(--step--2);
+  }
+
+  /* The active divider is the same paper as the sheet, so it reads as
+     the page you are on, with its lamp lit. */
+  .active,
+  .active:hover {
+    background: var(--paper);
+    transform: translateX(-1px);
+    border-left: 0;
+  }
+
+  .lamp {
+    display: block;
+    position: absolute;
+    top: 0.75rem;
+    right: 0.8rem;
+    width: 9px;
+    height: 9px;
+    border: 1px solid var(--ink);
+    background: var(--paper-2);
+  }
+
+  .active .lamp {
+    background: var(--chartreuse);
+  }
+}

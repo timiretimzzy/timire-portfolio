@@ -1,0 +1,27 @@
+.shell {
+  min-height: 100vh;
+}
+
+.page {
+  min-width: 0;
+}
+
+.main {
+  outline: none;
+  min-height: 60vh;
+}
+
+.loading {
+  min-height: 70vh;
+}
+
+@media (min-width: 1100px) {
+  /* On very wide screens the sheet stays at its maximum width, centred,
+     and the divider tabs stay attached to its right edge. */
+  .page {
+    margin-left: var(--edge);
+    margin-right: calc(var(--tab-w) + var(--edge));
+    border-right: var(--rule);
+    min-height: 100vh;
+  }
+}

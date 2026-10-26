@@ -1,0 +1,144 @@
+/* Display: Archivo stretched wide, like equipment lettering. */
+.display {
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+
+.display--condensed {
+  font-stretch: 70%;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.h1 {
+  font-family: var(--font-display);
+  font-stretch: 118%;
+  font-weight: 800;
+  font-size: var(--step-4);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.h2 {
+  font-family: var(--font-display);
+  font-stretch: 110%;
+  font-weight: 750;
+  font-size: var(--step-3);
+  line-height: 0.98;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.h3 {
+  font-family: var(--font-display);
+  font-stretch: 100%;
+  font-weight: 700;
+  font-size: var(--step-1);
+  line-height: 1.15;
+  margin: 0;
+}
+
+/* Technical metadata: part numbers, dates, labels. */
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+}
+
+.mono-xs {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+
+/* Used sparingly: stamps and a handful of labels. */
+.caps {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.lede {
+  font-family: var(--font-text);
+  font-size: var(--step-2);
+  line-height: 1.25;
+  font-weight: 400;
+  margin: 0;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* Highlighter: a flat marker stroke behind ink, never a glow. */
+.hl {
+  background: linear-gradient(transparent 12%, var(--chartreuse) 12%, var(--chartreuse) 88%, transparent 88%);
+  padding: 0 0.15em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Blue-pencil annotation. */
+.pencil {
+  color: var(--cobalt-ink);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+}
+
+/* Long-form reading. Calmer than the rest of the site. */
+.prose {
+  font-family: var(--font-text);
+  font-size: 1.1875rem;
+  line-height: 1.62;
+  max-width: 36em;
+}
+
+.prose p,
+.prose ul,
+.prose ol {
+  margin: 0 0 1.1em;
+}
+
+.prose h2 {
+  font-family: var(--font-display);
+  font-stretch: 105%;
+  font-weight: 750;
+  font-size: var(--step-2);
+  line-height: 1.05;
+  margin: 2.2em 0 0.6em;
+}
+
+.prose h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--step-1);
+  margin: 1.8em 0 0.5em;
+}
+
+.prose li {
+  margin-bottom: 0.4em;
+}
+
+.prose strong {
+  font-weight: 650;
+}
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--paper-2);
+  padding: 0.05em 0.3em;
+}
+
+.prose blockquote {
+  margin: 1.5em 0;
+  padding-left: 1.2em;
+  border-left: 3px solid var(--ink);
+  font-style: italic;
+}

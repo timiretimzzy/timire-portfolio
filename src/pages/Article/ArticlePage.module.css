@@ -1,0 +1,58 @@
+.article {
+  max-width: 46rem;
+  margin-inline: auto;
+  padding-block: clamp(2.5rem, 5vw, 4.5rem) 2rem;
+}
+
+.head {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.75rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+.meta {
+  margin: 0 0 1rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--muted);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-text);
+  font-weight: 500;
+  font-size: var(--step-3);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.dek {
+  margin: 1rem 0 0;
+  font-size: 1.25rem;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.body {
+  max-width: none;
+}
+
+.body ol,
+.body ul {
+  padding-left: 1.4rem;
+}
+
+.related {
+  margin-top: 3rem;
+  padding-top: 0.8rem;
+  border-top: var(--rule);
+}
+
+.related li {
+  padding: 0.35rem 0;
+}
+
+.back {
+  margin-top: 2.5rem;
+}

@@ -1,0 +1,697 @@
+/* ================= Figure frame ================= */
+.figure {
+  margin: 0;
+  border: 2px solid var(--ink);
+  background-color: var(--ink-2);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 .95 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  color: var(--paper);
+}
+
+.figure[data-view='schematic'] {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--cobalt) 14%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--cobalt) 14%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--ink);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  padding: 0.75rem clamp(0.75rem, 2vw, 1.25rem);
+  border-bottom: 1px solid currentColor;
+}
+
+.figNo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 1rem;
+  margin: 0;
+}
+
+.figTitle {
+  font-family: var(--font-display);
+  font-stretch: 112%;
+  font-weight: 750;
+  font-size: var(--step-1);
+}
+
+.viewSwitch {
+  display: inline-flex;
+  border: 1px solid currentColor;
+}
+
+.viewBtn {
+  min-height: 40px;
+  padding: 0.35rem 0.9rem;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  cursor: pointer;
+}
+
+.viewBtn + .viewBtn {
+  border-left: 1px solid currentColor;
+}
+
+.viewBtn[aria-pressed='true'] {
+  background: var(--chartreuse);
+  color: var(--ink);
+}
+
+.figure[data-view='schematic'] .viewBtn[aria-pressed='true'] {
+  background: var(--cobalt-ink);
+  color: var(--paper);
+}
+
+/* ================= Body layout ================= */
+.body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: clamp(0.75rem, 2.5vw, 2rem);
+}
+
+.ringWrap {
+  width: 100%;
+  max-width: 640px;
+  margin-inline: auto;
+}
+
+@media (min-width: 900px) {
+  .body {
+    grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.9fr);
+    grid-template-rows: auto 1fr;
+    column-gap: 0;
+    row-gap: 0;
+    align-items: start;
+  }
+
+  .ringWrap {
+    grid-row: 1 / span 2;
+    align-self: start;
+  }
+
+  .housing {
+    margin-top: 2rem;
+  }
+}
+
+/* ================= Housing (readout unit) ================= */
+.housing {
+  position: relative;
+  background: var(--cream);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  box-shadow:
+    inset 0 0 0 5px var(--cream),
+    inset 0 0 0 6px color-mix(in srgb, var(--ink) 30%, transparent);
+  padding: 1rem 1rem 1.6rem;
+}
+
+.housing::before,
+.housing::after {
+  content: '';
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1.5px solid var(--ink);
+  background: linear-gradient(35deg, transparent 44%, var(--ink) 44%, var(--ink) 56%, transparent 56%), var(--alu);
+  top: 9px;
+  left: 9px;
+}
+
+.housing::after {
+  left: auto;
+  right: 9px;
+}
+
+.badge {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0.4rem 0.6rem 0.9rem;
+  padding: 0.25rem 0.5rem;
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.06em;
+}
+
+.crt {
+  border: 10px solid var(--ink-3);
+  outline: 2px solid var(--ink);
+  padding: 0.85rem 0.9rem;
+  min-height: 15.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  line-height: 1.45;
+}
+
+.crt p {
+  margin: 0;
+}
+
+.crtLine {
+  opacity: 0.85;
+}
+
+.crtName {
+  font-family: var(--font-display);
+  font-stretch: 112%;
+  font-weight: 750;
+  font-size: 1.45rem;
+  line-height: 1.05;
+  margin: 0.25rem 0 0.35rem !important;
+}
+
+.crtSummary {
+  margin: 0.6rem 0 !important;
+  font-family: var(--font-mono);
+  color: color-mix(in srgb, var(--chartreuse) 88%, var(--paper));
+}
+
+/* Keys: chunky, square, printed legends. */
+.keys {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 560px) and (max-width: 899px) {
+  .keys {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+.key {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.15rem;
+  min-height: 64px;
+  padding: 0.5rem 0.25rem 0.45rem;
+  background: #efe8d4;
+  border: 2px solid var(--ink);
+  border-bottom-width: 5px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: transform var(--t-quick) var(--ease-out), border-bottom-width var(--t-quick);
+}
+
+.key:hover {
+  background: #f6f0df;
+}
+
+.key[aria-checked='true'] {
+  transform: translateY(3px);
+  border-bottom-width: 2px;
+  margin-bottom: 3px;
+}
+
+.keyLamp {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--ink);
+  background: var(--cream-shade);
+}
+
+.key[aria-checked='true'] .keyLamp {
+  background: var(--chartreuse);
+}
+
+.keyCap {
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 800;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.keyLegend {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.slot {
+  height: 7px;
+  margin: 1.2rem 12% 0;
+  background: var(--ink);
+  box-shadow: 0 2px 0 var(--cream-shade);
+}
+
+.vents {
+  position: absolute;
+  bottom: 0.45rem;
+  right: 1rem;
+  width: 64px;
+  height: 10px;
+  background: repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 8px);
+  opacity: 0.6;
+}
+
+/* ================= Paper tape ================= */
+.tapeWrap {
+  position: relative;
+  margin: -1.25rem 14% 0;
+  padding: 1.6rem 1.1rem 1rem;
+  background: var(--paper);
+  color: var(--ink);
+  border-inline: 1px solid color-mix(in srgb, var(--ink) 40%, transparent);
+  z-index: 1;
+  /* sprocket holes down both edges */
+  background-image:
+    radial-gradient(circle, var(--ink-2) 2.2px, transparent 2.6px),
+    radial-gradient(circle, var(--ink-2) 2.2px, transparent 2.6px);
+  background-size: 12px 14px, 12px 14px;
+  background-position: left 2px top 4px, right 2px top 4px;
+  background-repeat: repeat-y;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), 92% 100%, 84% calc(100% - 8px), 76% 100%, 68% calc(100% - 8px), 60% 100%, 52% calc(100% - 8px), 44% 100%, 36% calc(100% - 8px), 28% 100%, 20% calc(100% - 8px), 12% 100%, 4% calc(100% - 8px), 0 100%);
+  padding-bottom: 1.6rem;
+}
+
+.figure[data-view='schematic'] .tapeWrap {
+  background-color: var(--paper);
+  border-inline-color: var(--cobalt);
+}
+
+@media (max-width: 899px) {
+  .tapeWrap {
+    margin: -1.6rem 6% 0;
+  }
+}
+
+.tapeHead {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  margin: 0 0.4rem 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.tape {
+  list-style: none;
+  margin: 0 0.4rem 0.9rem;
+  padding: 0;
+  border-top: 1px dashed var(--ink);
+}
+
+.tapeLink {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0 0.7rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed var(--ink);
+  text-decoration: none;
+}
+
+.tapeLink:hover .tapeName {
+  background: var(--chartreuse);
+}
+
+.tapeItem {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  padding-top: 0.2rem;
+}
+
+.tapeName {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.tapeStatus {
+  grid-column: 2;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--muted);
+}
+
+/* ================= Caption and legend ================= */
+.caption {
+  padding: 0.7rem clamp(0.75rem, 2vw, 1.25rem) 0.8rem;
+  border-top: 1px solid currentColor;
+  font-family: var(--font-text);
+  font-style: italic;
+  font-size: 1rem;
+}
+
+.legend {
+  list-style: none;
+  margin: 0;
+  padding: 0 clamp(0.75rem, 2vw, 1.25rem) 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--cobalt-ink);
+}
+
+.legendNum {
+  display: inline-grid;
+  place-items: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-right: 0.4rem;
+  border: 1px solid var(--cobalt-ink);
+  border-radius: 50%;
+  font-size: var(--step--2);
+}
+
+/* ================= The ring drawing (SVG) ================= */
+.figure :global(.ring) {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.figure :global(.m-plate) {
+  fill: #1f1f1c;
+  stroke: #000;
+  stroke-width: 2;
+}
+
+.figure :global(.m-seam) {
+  fill: none;
+  stroke: #33332f;
+  stroke-width: 1;
+}
+
+.figure :global(.m-scratch) {
+  fill: none;
+  stroke: #4a4a44;
+  stroke-width: 0.8;
+  stroke-linecap: round;
+}
+
+.figure :global(.m-screw circle) {
+  fill: var(--alu-dark);
+  stroke: #000;
+  stroke-width: 1.5;
+}
+
+.figure :global(.m-screw path) {
+  stroke: #1a1a18;
+  stroke-width: 2;
+}
+
+.figure :global(.m-linkage rect) {
+  fill: var(--alu-dark);
+  stroke: #000;
+  stroke-width: 1.5;
+}
+
+.figure :global(.m-joint) {
+  fill: var(--alu);
+  stroke: #000;
+  stroke-width: 1.5;
+}
+
+.figure :global(.m-joint-pin) {
+  fill: #000;
+}
+
+.figure :global(.m-bezel) {
+  fill: var(--alu);
+  stroke: #000;
+  stroke-width: 2;
+}
+
+.figure :global(.m-bezel-edge) {
+  fill: none;
+  stroke: #000;
+  stroke-width: 1.5;
+}
+
+.figure :global(.m-tick) {
+  stroke: #000;
+  stroke-width: 0.9;
+}
+
+.figure :global(.m-tick--major) {
+  stroke-width: 1.6;
+}
+
+.figure :global(.m-scale-num) {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  fill: #000;
+}
+
+.figure :global(.m-disc) {
+  transform-box: view-box;
+  transform-origin: 320px 320px;
+  transition: transform var(--t-turn) var(--ease-detent);
+}
+
+.figure :global(.m-disc-face) {
+  fill: var(--cream);
+  stroke: #000;
+  stroke-width: 2;
+}
+
+.figure :global(.m-disc-ticks),
+.figure :global(.m-disc-line) {
+  fill: none;
+  stroke: #000;
+  stroke-width: 0.8;
+}
+
+.figure :global(.m-sector) {
+  cursor: pointer;
+}
+
+.figure :global(.m-sector-hit) {
+  fill: transparent;
+  pointer-events: all;
+}
+
+.figure :global(.m-sector:hover .m-sector-hit) {
+  fill: color-mix(in srgb, var(--ink) 6%, transparent);
+}
+
+.figure :global(.m-rim-lit) {
+  fill: var(--chartreuse);
+  stroke: #000;
+  stroke-width: 1;
+}
+
+.figure :global(.m-sector-line) {
+  stroke: #000;
+  stroke-width: 1.6;
+}
+
+.figure :global(.m-label) {
+  font-family: var(--font-display);
+  font-stretch: 78%;
+  font-weight: 700;
+  font-size: 17px;
+  fill: #111;
+}
+
+.figure :global(.m-part) {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  fill: #3c3a34;
+  text-transform: uppercase;
+}
+
+.figure :global(.glyph) {
+  fill: none;
+  stroke: #111;
+  stroke-width: 1.8;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.figure :global(.glyph-dot) {
+  fill: #111;
+  stroke: none;
+}
+
+.figure :global(.m-letter-disc) {
+  fill: #111;
+}
+
+.figure :global(.is-selected .m-letter-disc) {
+  fill: var(--chartreuse);
+  stroke: #111;
+  stroke-width: 2;
+}
+
+.figure :global(.m-letter) {
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 800;
+  font-size: 15px;
+  fill: var(--cream);
+}
+
+.figure :global(.is-selected .m-letter) {
+  fill: #111;
+}
+
+.figure :global(.m-hub) {
+  fill: var(--alu);
+  stroke: #000;
+  stroke-width: 2;
+}
+
+.figure :global(.m-hub-ring) {
+  fill: #1b1b19;
+  stroke: #000;
+  stroke-width: 1;
+}
+
+.figure :global(.m-hub-screw) {
+  fill: var(--alu-dark);
+  stroke: #000;
+  stroke-width: 1.5;
+}
+
+.figure :global(.m-hub-slot) {
+  stroke: #111;
+  stroke-width: 3;
+}
+
+.figure :global(.m-pointer rect),
+.figure :global(.m-pointer path) {
+  fill: #111;
+  stroke: #000;
+}
+
+.figure :global(.m-pointer .m-lamp) {
+  fill: var(--chartreuse);
+  stroke: #000;
+  stroke-width: 1;
+}
+
+.figure :global(.m-draft) {
+  display: none;
+}
+
+/* ---- Schematic: same geometry, drawn in blue pencil ---- */
+.figure[data-view='schematic'] :global(.ring *) {
+  fill: none;
+  stroke: var(--cobalt);
+}
+
+.figure[data-view='schematic'] :global(.ring text),
+.figure[data-view='schematic'] :global(.ring textPath) {
+  fill: var(--cobalt-ink);
+  stroke: none;
+}
+
+.figure[data-view='schematic'] :global(.m-scratch) {
+  display: none;
+}
+
+.figure[data-view='schematic'] :global(.m-rim-lit) {
+  fill: color-mix(in srgb, var(--cobalt) 18%, transparent);
+}
+
+.figure[data-view='schematic'] :global(.is-selected .m-letter-disc) {
+  fill: var(--cobalt-ink);
+}
+
+.figure[data-view='schematic'] :global(.is-selected .m-letter) {
+  fill: var(--paper);
+}
+
+.figure[data-view='schematic'] :global(.glyph-dot) {
+  fill: var(--cobalt);
+}
+
+.figure[data-view='schematic'] :global(.m-draft) {
+  display: inline;
+}
+
+.figure[data-view='schematic'] :global(.m-centre) {
+  stroke-dasharray: 18 4 3 4;
+  stroke-width: 0.8;
+}
+
+.figure[data-view='schematic'] :global(.m-dim),
+.figure[data-view='schematic'] :global(.m-callout path) {
+  stroke-width: 0.9;
+}
+
+.figure[data-view='schematic'] :global(.m-dim-arrow) {
+  fill: var(--cobalt);
+  stroke: none;
+}
+
+.figure[data-view='schematic'] :global(.m-dim-text) {
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.figure[data-view='schematic'] :global(.m-callout circle) {
+  fill: var(--paper);
+  stroke-width: 1.2;
+}
+
+.figure[data-view='schematic'] :global(.m-callout text) {
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.figure[data-view='schematic'] .housing {
+  background: var(--paper);
+  border-color: var(--cobalt);
+  box-shadow: inset 0 0 0 5px var(--paper), inset 0 0 0 6px var(--cobalt);
+}
+
+.figure[data-view='schematic'] .badge {
+  background: transparent;
+  color: var(--cobalt-ink);
+  border: 1px solid var(--cobalt);
+}
+
+.figure[data-view='schematic'] .crt {
+  background: var(--paper);
+  color: var(--cobalt-ink);
+  border-color: var(--paper);
+  outline-color: var(--cobalt);
+}
+
+.figure[data-view='schematic'] .crtSummary {
+  color: var(--ink);
+}
+
+.figure[data-view='schematic'] .key {
+  background: var(--paper);
+  border-color: var(--cobalt-ink);
+}
+
+.figure[data-view='schematic'] .slot {
+  background: var(--cobalt);
+  box-shadow: none;
+}
+
+@media (max-width: 899px) {
+  .figure :global(.m-linkage) {
+    display: none;
+  }
+}

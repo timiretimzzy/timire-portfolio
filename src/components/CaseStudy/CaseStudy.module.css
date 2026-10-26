@@ -1,0 +1,423 @@
+/* ================= Project band ================= */
+.page {
+  --band-bg: var(--ink-2);
+  --band-fg: var(--paper);
+  --band-mute: var(--muted-on-ink);
+  --band-mark: var(--chartreuse);
+}
+
+.page[data-accent='cobalt'] {
+  --band-bg: #2448b8;
+  --band-fg: var(--paper);
+  --band-mute: #d5dcf0;
+  --band-mark: var(--chartreuse);
+}
+
+.page[data-accent='chartreuse'] {
+  --band-bg: var(--chartreuse);
+  --band-fg: var(--ink);
+  --band-mute: #3a4210;
+  --band-mark: var(--cobalt);
+}
+
+.page[data-accent='signal'] {
+  --band-bg: var(--signal);
+  --band-fg: var(--ink);
+  --band-mute: #3b1407;
+  --band-mark: var(--paper);
+}
+
+.band {
+  background-color: var(--band-bg);
+  color: var(--band-fg);
+  border-bottom: 2px solid var(--ink);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.band a {
+  color: inherit;
+}
+
+.bandHead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.3rem 1rem;
+  padding: 1rem 0 0.7rem;
+  border-bottom: 1px solid currentColor;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+}
+
+.bandGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.5rem 2rem;
+  padding: clamp(1.5rem, 4vw, 3rem) 0 clamp(1.75rem, 4vw, 3rem);
+}
+
+@media (min-width: 900px) {
+  .bandGrid {
+    grid-template-columns: minmax(10rem, 3fr) minmax(0, 9fr);
+    align-items: end;
+  }
+}
+
+.itemNo {
+  margin: 0;
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 800;
+  font-size: clamp(4.5rem, 3rem + 7vw, 11rem);
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  isolation: isolate;
+}
+
+.itemNo :global(.misreg)::before {
+  color: var(--band-mark);
+}
+
+.titleBlock {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.parent {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--band-mute);
+}
+
+.summary {
+  margin: 0;
+  font-size: var(--step-1);
+  line-height: 1.35;
+  max-width: 36em;
+}
+
+.statusLine {
+  margin: 0.2rem 0 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.statusLine :global(.stamp) {
+  font-size: var(--step--1);
+}
+
+/* The provenance mark sits on a coloured band; keep it readable. */
+.band [data-evidence] {
+  color: var(--band-fg);
+  background: transparent;
+  border-color: currentColor;
+}
+
+/* ================= Toolbar ================= */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  padding: 1.25rem 0;
+  border-bottom: var(--rule);
+}
+
+.toolbar p {
+  margin: 0;
+}
+
+.viewSwitch {
+  display: inline-flex;
+  border: 1px solid var(--ink);
+}
+
+.viewSwitch button {
+  min-height: 40px;
+  padding: 0.3rem 0.9rem;
+  background: transparent;
+  border: 0;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  cursor: pointer;
+}
+
+.viewSwitch button + button {
+  border-left: 1px solid var(--ink);
+}
+
+.viewSwitch button[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* ================= Layout ================= */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem;
+  padding-top: 0.5rem;
+}
+
+@media (min-width: 1000px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 19rem);
+    gap: var(--gutter);
+  }
+
+  .margin {
+    position: sticky;
+    top: 1.5rem;
+    align-self: start;
+  }
+}
+
+.margin {
+  display: grid;
+  gap: 2rem;
+  padding-top: 1.75rem;
+}
+
+.margin dd {
+  font-size: 0.98rem;
+}
+
+.related {
+  border-top: 2px solid var(--ink);
+  padding-top: 0.7rem;
+}
+
+.relatedHead {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+}
+
+.related li {
+  padding: 0.35rem 0;
+  border-bottom: var(--rule-hair);
+}
+
+.related a {
+  text-decoration: none;
+}
+
+.related a:hover {
+  background: var(--chartreuse);
+}
+
+/* ================= Sections ================= */
+.section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.75rem;
+  padding: 1.75rem 0;
+  border-bottom: var(--rule-hair);
+}
+
+@media (min-width: 760px) {
+  .section {
+    grid-template-columns: 13rem minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+.sectionHead {
+  display: flex;
+  gap: 0.7rem;
+  align-items: baseline;
+  margin: 0;
+  font-family: var(--font-display);
+  font-stretch: 100%;
+  font-weight: 750;
+  font-size: 1.15rem;
+  line-height: 1.2;
+}
+
+.sectionNum {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-weight: 400;
+  color: var(--cobalt-ink);
+}
+
+.sectionBody {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.sectionBody :global(.prose) p:last-child {
+  margin-bottom: 0;
+}
+
+.facts {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: 40em;
+}
+
+.facts li {
+  position: relative;
+  padding: 0.35rem 0 0.35rem 1.4rem;
+  border-bottom: 1px dotted color-mix(in srgb, var(--ink) 40%, transparent);
+}
+
+.facts li::before {
+  content: '';
+  position: absolute;
+  left: 0.15rem;
+  top: 0.95rem;
+  width: 0.55rem;
+  height: 1px;
+  background: var(--ink);
+}
+
+.toFollow {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--muted);
+}
+
+.children {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: var(--rule);
+}
+
+.children li {
+  padding: 0.6rem 0;
+  border-bottom: var(--rule-hair);
+}
+
+.children a {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-decoration: none;
+  margin-right: 0.4rem;
+}
+
+.children a:hover {
+  background: var(--chartreuse);
+}
+
+/* ================= Undrawn sheet ================= */
+.undrawn {
+  margin: 1.75rem 0;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  border: 2px dashed var(--ink);
+  background-color: var(--paper-2);
+  max-width: 44em;
+}
+
+.undrawn p {
+  margin: 0 0 0.9rem;
+}
+
+.undrawnHead {
+  font-family: var(--font-display);
+  font-stretch: 115%;
+  font-weight: 800;
+  font-size: var(--step-2);
+  line-height: 1.05;
+}
+
+/* ================= Data sheet ================= */
+.dataSheet {
+  padding: 1.75rem 0;
+  max-width: 52em;
+}
+
+/* ================= Plates ================= */
+.plates {
+  padding: 2rem 0;
+}
+
+.plates .sectionHead {
+  margin-bottom: 1.25rem;
+}
+
+.plateGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: 1.75rem var(--gutter);
+}
+
+/* ================= Owner notes (dev only) ================= */
+.owner {
+  border: 1px solid var(--signal);
+  background: color-mix(in srgb, var(--signal) 8%, var(--paper));
+  padding: 0.6rem 0.8rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+}
+
+.owner ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.ownerHead {
+  margin: 0 0 0.3rem;
+  font-weight: 500;
+}
+
+/* ================= Pager ================= */
+.pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gutter);
+  margin-top: 2.5rem;
+  border-top: 2px solid var(--ink);
+}
+
+.pagerLink {
+  display: grid;
+  gap: 0.2rem;
+  padding: 1rem 0;
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-weight: 750;
+  font-size: var(--step-1);
+}
+
+.pagerLink:hover span:last-child {
+  background: var(--chartreuse);
+}
+
+.pagerNext {
+  text-align: right;
+}
+
+/* ================= Enquiry block ================= */
+.enquiry {
+  padding: 0.8rem 0.9rem 0.9rem;
+  border: 2px solid var(--ink);
+  background: var(--chartreuse);
+}
+
+.enquiryHead {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+}
+
+.enquiryText {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+/* Stacked contact links: tall enough to tap without hitting the neighbour. */
+.enquiryText a {
+  display: inline-block;
+  padding-block: 0.3rem;
+}

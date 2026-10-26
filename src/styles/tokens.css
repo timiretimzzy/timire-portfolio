@@ -1,0 +1,56 @@
+/*
+ * Design tokens. The Timire Machine palette.
+ *
+ * Paper is the default surface: this is a manual, not a dashboard.
+ * Ink is matte. Chartreuse is a highlighter and an indicator lamp.
+ * Cobalt is blue pencil: annotations, diagrams, schematic lines.
+ * Signal orange belongs to the Experiments section only.
+ */
+:root {
+  --ink: #111111;
+  --ink-2: #1b1b19;          /* slightly lifted matte black for plates */
+  --ink-3: #2a2a27;          /* panel seams on black */
+  --paper: #f4f0e8;
+  --paper-2: #ebe5d8;        /* aged paper, plate grounds */
+  --manila: #e2d6b8;         /* binder dividers */
+  --cream: #e8dfc8;          /* aged instrument plastic */
+  --cream-shade: #d4c9ae;
+  --alu: #b9b6ae;            /* matte aluminium */
+  --alu-dark: #8f8c84;
+  --glass: #151812;          /* CRT glass, faintly green-black */
+
+  --chartreuse: #d8ff3e;
+  --cobalt: #477bff;         /* lines and large marks only */
+  --cobalt-ink: #2f5bd8;     /* cobalt text on paper (5.1:1) */
+  --signal: #ff5b23;
+
+  --muted: #5e5a52;          /* secondary text on paper (6.0:1) */
+  --muted-on-ink: #9c978c;   /* secondary text on ink (6.5:1) */
+
+  --rule: 1px solid var(--ink);
+  --rule-hair: 1px solid color-mix(in srgb, var(--ink) 35%, transparent);
+
+  --font-display: 'Archivo Variable', 'Archivo', 'Arial Narrow', Arial, sans-serif;
+  --font-text: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+  --step--2: 0.75rem;
+  --step--1: 0.8125rem;
+  --step-0: 1.0625rem;
+  --step-1: clamp(1.2rem, 1.1rem + 0.4vw, 1.4rem);
+  --step-2: clamp(1.5rem, 1.3rem + 0.9vw, 2rem);
+  --step-3: clamp(2rem, 1.6rem + 2vw, 3.25rem);
+  --step-4: clamp(2.6rem, 1.8rem + 4vw, 5.5rem);
+  --step-mega: clamp(2.5rem, 0.2rem + 13vw, 9.75rem);
+
+  --gutter: clamp(1rem, 0.6rem + 1.8vw, 2.5rem);
+  --sheet-max: 1480px;
+  --tab-w: 176px;
+  /* gutter outside the sheet on ultrawide screens */
+  --edge: max(0px, (100vw - var(--sheet-max) - var(--tab-w)) / 2);
+
+  --radius: 2px;             /* the only radius on the site */
+  --focus: 3px solid var(--cobalt-ink);
+
+  color-scheme: light;
+}

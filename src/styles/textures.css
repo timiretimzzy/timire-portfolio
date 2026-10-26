@@ -1,0 +1,103 @@
+/*
+ * Material textures. Each is a class you opt into; nothing is applied
+ * site-wide except the faint paper fibre on the body.
+ */
+
+/* Paper fibre: static SVG noise, about 1 KB, never animated. */
+body {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .07 0 0 0 0 .06 0 0 0 0 .04 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Matte black instrument plate, with a little scratch noise. */
+.tex-plate {
+  background-color: var(--ink-2);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 .95 0 0 0 .045 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  color: var(--paper);
+}
+
+/* Halftone dot screen, for reserved plates and printed tints. */
+.tex-halftone {
+  background-image: radial-gradient(circle at center, color-mix(in srgb, var(--ink) 22%, transparent) 0.9px, transparent 1.2px);
+  background-size: 6px 6px;
+}
+
+/* Photocopy edge: a slightly uneven ink border. */
+.tex-copy-edge {
+  box-shadow:
+    0 0 0 1px var(--ink),
+    1px 2px 0 0 color-mix(in srgb, var(--ink) 30%, transparent);
+}
+
+/*
+ * Misregistration: a cobalt plate printed 2px off the black one.
+ * Applied to a handful of large numerals only, never to body text.
+ */
+.misreg {
+  position: relative;
+  display: inline-block;
+}
+
+.misreg::before {
+  content: attr(data-text);
+  position: absolute;
+  left: 0.035em;
+  top: 0.03em;
+  color: var(--cobalt);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* CRT glass: only ever used inside the machine's readout window. */
+.tex-crt {
+  background-color: var(--glass);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.28) 3px
+  );
+  color: var(--chartreuse);
+}
+
+/* Crop and registration marks at the corners of a sheet. */
+.crop {
+  position: relative;
+}
+
+.crop::before,
+.crop::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  border-color: var(--ink);
+  border-style: solid;
+  opacity: 0.55;
+}
+
+.crop::before {
+  top: -10px;
+  left: -10px;
+  border-width: 0 1px 1px 0;
+}
+
+.crop::after {
+  bottom: -10px;
+  right: -10px;
+  border-width: 1px 0 0 1px;
+}
+
+/* Rubber stamp, used for status. Slightly rotated, never animated. */
+.stamp {
+  display: inline-block;
+  border: 2px solid currentColor;
+  padding: 0.15em 0.55em 0.1em;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transform: rotate(-1.5deg);
+  white-space: nowrap;
+}

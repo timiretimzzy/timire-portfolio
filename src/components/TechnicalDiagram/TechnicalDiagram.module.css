@@ -1,0 +1,91 @@
+.fig {
+  margin: 0;
+  min-width: 0;
+  max-width: 100%;
+  border: 1px solid var(--cobalt);
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--cobalt) 10%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--cobalt) 10%, transparent) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.stamp {
+  display: inline-block;
+  margin: 0.8rem 0.8rem 0;
+  padding: 0.15rem 0.5rem;
+  border: 1.5px solid var(--cobalt-ink);
+  color: var(--cobalt-ink);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  transform: rotate(-0.8deg);
+}
+
+.scroll {
+  overflow-x: auto;
+  padding: 0.5rem 0.8rem;
+}
+
+.svg {
+  min-width: 640px;
+  width: 100%;
+  height: auto;
+}
+
+.caption {
+  padding: 0.7rem 0.9rem 0.9rem;
+  border-top: 1px solid var(--cobalt);
+  font-size: 0.95rem;
+  font-style: italic;
+}
+
+.svg :global(.d-box rect) {
+  fill: var(--paper);
+  stroke: var(--cobalt);
+  stroke-width: 1.5;
+}
+
+.svg :global(.d-box--strong rect) {
+  stroke-width: 3;
+}
+
+.svg :global(.d-title) {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  fill: var(--ink);
+}
+
+.svg :global(.d-sub),
+.svg :global(.d-note) {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  fill: var(--cobalt-ink);
+}
+
+.svg :global(.d-label) {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  fill: var(--ink);
+}
+
+.svg :global(.d-arrow) {
+  fill: none;
+  stroke: var(--cobalt-ink);
+  stroke-width: 1.5;
+}
+
+.svg :global(.d-arrow--dashed) {
+  stroke-dasharray: 6 4;
+}
+
+.svg :global(.d-head) {
+  fill: var(--cobalt-ink);
+}
+
+.svg :global(.d-zone) {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1;
+  stroke-dasharray: 2 3;
+}

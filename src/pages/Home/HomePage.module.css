@@ -1,0 +1,215 @@
+/* ---------- Masthead ---------- */
+.masthead {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: 2rem;
+  padding-block: clamp(1.5rem, 3vw, 2.75rem) clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.name {
+  grid-column: 1 / -1;
+  font-size: var(--step-mega);
+  display: flex;
+  flex-direction: column;
+}
+
+.given {
+  display: block;
+}
+
+.family {
+  display: block;
+  padding-left: 0.62em;
+  position: relative;
+}
+
+
+.intro {
+  grid-column: 1 / span 7;
+  display: grid;
+  gap: 1.1rem;
+  align-content: start;
+}
+
+.body {
+  margin: 0;
+  max-width: 38em;
+  font-size: 1.125rem;
+}
+
+.voice {
+  margin: 0;
+  font-style: italic;
+  font-size: 1.125rem;
+  padding-left: 1rem;
+  border-left: 3px solid var(--chartreuse);
+  max-width: 34em;
+}
+
+.spec {
+  grid-column: 9 / -1;
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.specHead {
+  margin: 0;
+}
+
+.spec dd {
+  font-size: 1rem;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 1280px) {
+  .intro {
+    grid-column: 1 / span 7;
+  }
+
+  .spec {
+    grid-column: 8 / -1;
+  }
+}
+
+@media (max-width: 860px) {
+  .intro,
+  .spec {
+    grid-column: 1 / -1;
+  }
+
+  .family {
+    padding-left: 0.35em;
+  }
+}
+
+/* ---------- Figure ---------- */
+.figure {
+  padding-bottom: clamp(2rem, 4vw, 4rem);
+}
+
+/* ---------- Contents ---------- */
+.contentsGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .contentsGrid {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: var(--gutter);
+  }
+}
+
+.contentsNote {
+  margin: 0.9rem 0 0;
+  max-width: 22em;
+}
+
+.toc {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: var(--rule);
+}
+
+.tocLink {
+  display: grid;
+  grid-template-columns: 4.2rem minmax(0, auto) 1fr auto;
+  align-items: baseline;
+  gap: 0 0.8rem;
+  padding: 1rem 0;
+  border-bottom: var(--rule);
+  text-decoration: none;
+}
+
+.tocLink:hover .tocName {
+  background: var(--chartreuse);
+}
+
+.tocNum {
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 800;
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+.tocText {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.tocName {
+  font-family: var(--font-display);
+  font-stretch: 110%;
+  font-weight: 750;
+  font-size: var(--step-1);
+  width: fit-content;
+}
+
+.tocPlain {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.tocDesc {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.tocLeader {
+  align-self: center;
+  border-bottom: 2px dotted var(--ink);
+  min-width: 1rem;
+  opacity: 0.55;
+}
+
+.tocSheet {
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  .tocLink {
+    grid-template-columns: 3.2rem 1fr;
+  }
+
+  .tocNum {
+    font-size: 1.9rem;
+  }
+
+  .tocLeader,
+  .tocSheet {
+    display: none;
+  }
+}
+
+/* ---------- Parts ---------- */
+.partsHead {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+@media (min-width: 900px) {
+  .partsHead {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: end;
+    gap: var(--gutter);
+  }
+}
+
+.partsNote {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 34em;
+}
+
+.partsMore {
+  margin: 1.2rem 0 0;
+}

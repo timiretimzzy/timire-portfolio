@@ -1,0 +1,135 @@
+.head {
+  display: grid;
+  gap: 1.25rem;
+  padding-block: clamp(2rem, 4vw, 3.5rem) 2.5rem;
+}
+
+@media (min-width: 1000px) {
+  .head {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: end;
+    gap: var(--gutter);
+  }
+}
+
+.plain {
+  display: block;
+  margin-top: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-weight: 400;
+  font-stretch: 100%;
+  letter-spacing: 0;
+}
+
+.intro {
+  margin: 0;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  max-width: 32em;
+}
+
+.shelves {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border-top: 2px solid var(--ink);
+}
+
+@media (min-width: 900px) {
+  .shelves {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .shelf + .shelf {
+    border-left: 1px solid var(--ink);
+  }
+}
+
+.shelf {
+  padding: 1.5rem var(--gutter) 2.5rem 0;
+  border-bottom: 1px solid var(--ink);
+}
+
+@media (min-width: 900px) {
+  .shelf + .shelf {
+    padding-left: var(--gutter);
+  }
+}
+
+.shelfNo {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+}
+
+.shelfTitle {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-text);
+  font-weight: 500;
+  font-size: var(--step-2);
+  line-height: 1.1;
+}
+
+.shelfDesc {
+  margin: 0 0 1.5rem;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.entries {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: var(--rule);
+}
+
+.entry {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.9rem 0;
+  border-bottom: var(--rule-hair);
+  text-decoration: none;
+}
+
+.entry:hover .entryTitle {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+
+.entryMeta {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--muted);
+}
+
+.entryTitle {
+  font-family: var(--font-text);
+  font-size: 1.25rem;
+  line-height: 1.25;
+  font-weight: 500;
+}
+
+.entrySummary {
+  font-size: 0.98rem;
+  color: var(--muted);
+}
+
+.emptyShelf {
+  margin: 0;
+  padding: 1rem 0;
+  border-top: 1px dashed var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--muted);
+}
+
+.shelfMore {
+  margin: 1rem 0 0;
+  font-size: 0.98rem;
+  color: var(--muted);
+}
+
+.shelfMore :global(.go) {
+  color: var(--ink);
+  margin-left: 0.3rem;
+}

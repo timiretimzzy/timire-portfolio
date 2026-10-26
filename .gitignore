@@ -1,0 +1,11 @@
+node_modules
+dist
+dist-*
+*.local
+.DS_Store
+test-results
+playwright-report
+docs/AGENT_ACTIVITY_REPORT.md
+docs/IMPLEMENTATION_REPORT.md
+docs/CONTENT_TODO.md
+src/pages/About/about-append.css.tmp

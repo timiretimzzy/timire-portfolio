@@ -1,0 +1,73 @@
+.block {
+  padding: clamp(2rem, 4vw, 4rem) var(--gutter) var(--gutter);
+  max-width: var(--sheet-max);
+  margin-inline: auto;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border: 2px solid var(--ink);
+  background: var(--paper);
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.55rem 0.75rem 0.6rem;
+  border-right: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  min-width: 0;
+}
+
+.k {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--muted);
+}
+
+.v {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  overflow-wrap: anywhere;
+}
+
+.title,
+.contact {
+  grid-column: 1 / -1;
+}
+
+.title .v {
+  font-family: var(--font-display);
+  font-stretch: 110%;
+  font-weight: 750;
+  font-size: var(--step-1);
+}
+
+@media (min-width: 760px) {
+  .inner {
+    grid-template-columns: 2.2fr 0.7fr 0.8fr 0.9fr;
+  }
+
+  .title {
+    grid-column: 1 / 2;
+  }
+
+  .contact {
+    grid-column: 1 / 2;
+  }
+
+  .cell:nth-child(4),
+  .cell:last-child {
+    border-right: 0;
+  }
+
+  .cell:last-child {
+    grid-column: span 2;
+  }
+
+  .cell:nth-last-child(-n + 3) {
+    border-bottom: 0;
+  }
+}

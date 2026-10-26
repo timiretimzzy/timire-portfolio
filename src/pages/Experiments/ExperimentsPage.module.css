@@ -1,0 +1,251 @@
+.ground {
+  overflow-x: clip;
+  background-color: var(--ink);
+  color: var(--paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 .95 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  padding-bottom: clamp(3rem, 6vw, 6rem);
+}
+
+.ground a:focus-visible {
+  outline-color: var(--chartreuse);
+}
+
+.head {
+  border-bottom-color: var(--paper);
+}
+
+.intro {
+  display: grid;
+  gap: 1.5rem;
+  padding-block: clamp(2rem, 5vw, 4rem);
+}
+
+@media (min-width: 1000px) {
+  .introText {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: var(--gutter);
+    align-items: start;
+    max-width: 62rem;
+    margin-left: auto;
+  }
+
+  .introText > p:first-child {
+    grid-row: 1 / span 2;
+  }
+}
+
+.title {
+  margin: 0;
+  display: grid;
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 800;
+  line-height: 0.84;
+  letter-spacing: -0.03em;
+  font-size: var(--step-3);
+}
+
+.titleBig {
+  font-size: clamp(2.2rem, 0.2rem + 8.6vw, 9.5rem);
+  color: var(--signal);
+  /* deliberate misprint: the orange plate slipped */
+  text-shadow: 0.04em 0.03em 0 var(--chartreuse);
+}
+
+.introText p {
+  margin: 0 0 1rem;
+  font-size: 1.15rem;
+  max-width: 30em;
+}
+
+.legendNote {
+  font-family: var(--font-mono);
+  font-size: var(--step--1) !important;
+  color: var(--muted-on-ink);
+}
+
+.legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.legend li {
+  border: 1px solid var(--paper);
+  padding: 0.1rem 0.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* The shelf: cartridges standing in a row on a ledge. */
+.shelf {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 2.5rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: 2.5rem var(--gutter);
+  border-bottom: 10px solid var(--ink-3);
+  box-shadow: 0 4px 0 #000;
+  padding-bottom: 0;
+}
+
+.slot {
+  display: flex;
+  align-items: flex-end;
+}
+
+.cart {
+  --body: #242320;
+  width: 100%;
+  display: grid;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--body);
+  padding: 10px 12px 12px;
+  clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%, 0 14px);
+  transform: rotate(var(--tilt));
+  transform-origin: bottom center;
+  transition: transform 260ms var(--ease-detent);
+}
+
+.cart:hover,
+.cart:focus-within {
+  transform: translateY(-14px) rotate(0deg);
+}
+
+.cartPaper {
+  --body: #242320;
+}
+
+.cartTop {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 4px 8px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--muted-on-ink);
+}
+
+.label {
+  position: relative;
+  display: grid;
+  gap: 0.5rem;
+  padding: 0 0.85rem 0.9rem;
+  background: var(--paper);
+  border: 2px solid #000;
+}
+
+.stripes {
+  height: 22px;
+  margin: 0 -0.85rem 0.2rem;
+  background: repeating-linear-gradient(-45deg, var(--signal) 0 10px, var(--ink) 10px 20px);
+  border-bottom: 2px solid #000;
+}
+
+.cover {
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+  border: 1px solid var(--ink);
+}
+
+.ringMini {
+  display: block;
+  aspect-ratio: 8 / 5;
+  border: 1px solid var(--ink);
+  background:
+    radial-gradient(circle at 50% 56%, var(--ink) 0 9%, var(--alu) 9% 15%, var(--cream) 15% 37%, var(--ink) 37% 38%, var(--alu) 38% 44%, transparent 44%),
+    var(--signal);
+}
+
+.cartName {
+  margin: 0;
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 800;
+  font-size: 1.6rem;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+.tagline {
+  font-family: var(--font-text);
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.3;
+  color: var(--muted);
+}
+
+.cartFoot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 10px 4px 0;
+}
+
+.stamp {
+  border: 2px solid var(--signal);
+  color: var(--signal);
+  padding: 0.1rem 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transform: rotate(-2deg);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.open {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--paper);
+  border-bottom: 1px solid currentColor;
+  text-decoration: none;
+}
+
+/* The Play button: the one chunky key on the cartridge. */
+.play {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0.2rem 0.9rem;
+  background: var(--signal);
+  color: var(--ink);
+  border: 2px solid #000;
+  border-bottom-width: 4px;
+  font-family: var(--font-display);
+  font-stretch: 115%;
+  font-weight: 800;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.play:hover {
+  background: var(--chartreuse);
+}
+
+.play:active {
+  border-bottom-width: 2px;
+  transform: translateY(2px);
+}
+
+.footnote {
+  margin: 3rem 0 0;
+  max-width: 40em;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--muted-on-ink);
+}

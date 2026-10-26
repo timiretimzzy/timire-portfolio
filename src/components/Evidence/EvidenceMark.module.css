@@ -1,0 +1,35 @@
+.mark {
+  display: inline-block;
+  margin-left: 0.45em;
+  padding: 0 0.35em;
+  border: 1px solid currentColor;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  vertical-align: 0.12em;
+  white-space: nowrap;
+  color: var(--cobalt-ink);
+}
+
+.mark[data-evidence='verified'] {
+  color: var(--ink);
+  background: var(--chartreuse);
+  border-color: var(--ink);
+}
+
+.mark[data-evidence='pending'] {
+  color: var(--muted);
+  border-style: dashed;
+}
+
+.compact {
+  font-size: 0.625rem;
+  padding: 0 0.3em;
+}
+
+.mark[data-evidence='inspected'] {
+  color: var(--ink);
+  border-color: var(--ink);
+  background: var(--paper-2);
+}

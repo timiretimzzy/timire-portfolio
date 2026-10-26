@@ -1,0 +1,44 @@
+/*
+ * Motion principles
+ * 1. Things move only when you ask them to. No idle loops.
+ * 2. Mechanical, not floaty: short travel, a small overshoot, then rest.
+ * 3. Reduced motion means no animated transforms at all.
+ */
+:root {
+  --ease-detent: cubic-bezier(0.34, 1.32, 0.5, 1);   /* ratchet settling */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --t-quick: 140ms;
+  --t-turn: 820ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --t-quick: 0ms;
+    --t-turn: 0ms;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Page sheets slide in like a sheet laid on the desk. */
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.sheet-enter {
+  animation: sheet-in 360ms var(--ease-out) both;
+}

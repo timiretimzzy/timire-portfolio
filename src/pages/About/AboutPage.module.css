@@ -1,0 +1,337 @@
+.opening {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem;
+  padding-block: clamp(2rem, 4vw, 3.5rem);
+}
+
+@media (min-width: 1000px) {
+  .opening {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+    gap: calc(var(--gutter) * 1.5);
+  }
+}
+
+.titleCol {
+  display: grid;
+  gap: 2rem;
+  align-content: start;
+}
+
+.plain {
+  display: block;
+  margin-top: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-weight: 400;
+  font-stretch: 100%;
+  letter-spacing: 0;
+}
+
+.labelCol {
+  display: grid;
+  gap: 1.5rem;
+  align-content: start;
+}
+
+/* A museum specimen label: card stock, double rule, typed entries. */
+.label {
+  background: var(--cream);
+  border: 3px double var(--ink);
+  padding: 0.8rem 1rem 1rem;
+  transform: rotate(0.6deg);
+  box-shadow: 2px 3px 0 color-mix(in srgb, var(--ink) 18%, transparent);
+}
+
+.labelHead {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 0.6rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.labelList {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 0.35rem 0.75rem;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+}
+
+.labelList dt {
+  color: var(--muted);
+}
+
+.labelList dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.secHead {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.secHead p {
+  margin: 0;
+  max-width: 36em;
+}
+
+@media (min-width: 900px) {
+  .secHead {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: end;
+    gap: var(--gutter);
+  }
+}
+
+/* Mechanism entries: big letter in the margin, contents to the right. */
+.mechList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border-top: 2px solid var(--ink);
+}
+
+@media (min-width: 900px) {
+  .mechList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--gutter);
+  }
+}
+
+.mech {
+  display: grid;
+  grid-template-columns: 3.4rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--ink);
+}
+
+.mechId {
+  margin: 0;
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 800;
+  font-size: 3rem;
+  line-height: 0.85;
+}
+
+.mechBody {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.part {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: var(--step--2);
+  color: var(--muted);
+  margin-left: 0.4rem;
+}
+
+.caps {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 1rem;
+}
+
+.caps li {
+  margin-bottom: 0.2rem;
+}
+
+.used {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.aiNote {
+  margin: 1.75rem 0 0;
+  max-width: 40em;
+  padding: 0.75rem 0 0.75rem 1rem;
+  border-left: 2px solid var(--cobalt);
+}
+
+/* Logbook */
+.logGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem;
+}
+
+@media (min-width: 1000px) {
+  .logGrid {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--gutter);
+  }
+}
+
+.logTitle {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: var(--step--1);
+}
+
+.log {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 2px solid var(--ink);
+}
+
+.log li {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: var(--rule-hair);
+}
+
+.log p {
+  margin: 0;
+}
+
+.logPeriod {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+}
+
+.logOrg {
+  font-family: var(--font-display);
+  font-weight: 750;
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+
+.logRole {
+  font-style: italic;
+  margin-bottom: 0.35rem !important;
+}
+
+.logNotes {
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 40em;
+}
+
+@media (max-width: 520px) {
+  .log li {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.2rem;
+  }
+}
+
+/* Interests */
+.interests {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .interests {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: var(--gutter);
+  }
+
+  .interestNote {
+    grid-column: 2;
+  }
+}
+
+.interestList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  border-top: var(--rule);
+  border-left: var(--rule);
+}
+
+.interestList li {
+  padding: 0.6rem 0.9rem;
+  border-right: var(--rule);
+  border-bottom: var(--rule);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  flex: 1 1 auto;
+}
+
+.interestNote {
+  margin: 0;
+}
+
+.method {
+  margin: 0;
+  max-width: 38em;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.fieldNotes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 2px solid var(--ink);
+}
+
+.fieldNotes li {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  gap: 0.75rem;
+  padding: 0.85rem 0;
+  border-bottom: var(--rule-hair);
+}
+
+.fieldNotes p {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.55;
+  max-width: 40em;
+}
+
+.noteNo {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--cobalt-ink);
+  padding-top: 0.3rem;
+}
+
+.reach {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1rem, 3vw, 1.75rem);
+  border: 2px solid var(--ink);
+  background: var(--chartreuse);
+  max-width: 52rem;
+}
+
+.reach p {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+@media (max-width: 520px) {
+  .fieldNotes li {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.2rem;
+  }
+}
+
+.labelList a {
+  display: inline-block;
+  padding-block: 0.3rem;
+}
